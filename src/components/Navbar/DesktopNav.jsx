@@ -1,5 +1,6 @@
-import { Box, Link, Popover, PopoverContent, PopoverTrigger, Stack, useColorModeValue } from "@chakra-ui/react";
+import { Box, Popover, PopoverContent, PopoverTrigger, Stack, useColorModeValue } from "@chakra-ui/react";
 import DesktopSubNav from "./DesktopSubNav";
+import { Link } from "react-router-dom";
 
 const DesktopNav = ({ navItems }) => {
 	const linkColor = useColorModeValue("gray.600", "gray.200");
@@ -7,14 +8,14 @@ const DesktopNav = ({ navItems }) => {
 	const popoverContentBgColor = useColorModeValue("white", "gray.800");
 
 	return (
-		<Stack direction={"row"} spacing={4}>
+		<Stack direction={"row"} spacing={10}>
 			{navItems.map((navItem) => (
 				<Box key={navItem.label}>
 					<Popover trigger={"hover"} placement={"bottom-start"}>
 						<PopoverTrigger>
 							<Link
+								to={navItem.path}
 								p={2}
-								href={navItem.path ?? "#"}
 								fontSize={"sm"}
 								fontWeight={500}
 								color={linkColor}
