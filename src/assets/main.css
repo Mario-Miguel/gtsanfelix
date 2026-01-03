@@ -1,0 +1,48 @@
+@import 'tailwindcss';
+@import '@nuxt/ui';
+
+/* Ensure the app root fills the viewport so the header remains fixed
+	 and the main area can scroll independently. */
+html,
+body,
+#app {
+  height: 100%;
+}
+body {
+  margin: 0;
+}
+#app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+:root {
+  --ui-color-primary-50: #f0f9ff;
+  --ui-color-primary-100: #e0f2fe;
+  --ui-color-primary-200: #bae6fd;
+  --ui-color-primary-300: #7dd3fc;
+  --ui-color-primary-400: #38bdf8;
+  --ui-color-primary-500: #0ea5e9;
+  --ui-color-primary-600: #0284c7;
+  --ui-color-primary-700: #0369a1;
+  --ui-color-primary-800: #075985;
+  --ui-color-primary-900: #0b4a6f;
+
+  --ui-primary: var(--ui-color-primary-500);
+
+  /* neutral/text */
+  --ui-color-neutral-700: #374151;
+  --ui-text: var(--ui-color-neutral-700);
+
+  /* primary/other palettes (examples) */
+  --ui-color-primary-500: #0ea5e9;
+  --ui-color-secondary-500: #f97316;
+  --ui-color-error-500: #ef4444;
+  --ui-color-success-500: #22c55e;
+}
+.dark {
+  /* optional dark-mode overrides */
+  --ui-color-primary-500: #60a5fa;
+  --ui-primary: var(--ui-color-primary-500);
+}
