@@ -1,15 +1,16 @@
 @import 'tailwindcss';
 @import '@nuxt/ui';
 
-/* Ensure the app root fills the viewport so the header remains fixed
-	 and the main area can scroll independently. */
 html,
 body,
 #app {
   height: 100%;
+  font-family: 'Inter', sans-serif;
 }
 body {
   margin: 0;
+  background-color: #221010;
+  color: #fff;
 }
 #app {
   display: flex;
@@ -17,32 +18,56 @@ body {
   min-height: 100vh;
 }
 
-:root {
-  --ui-color-primary-50: #f0f9ff;
-  --ui-color-primary-100: #e0f2fe;
-  --ui-color-primary-200: #bae6fd;
-  --ui-color-primary-300: #7dd3fc;
-  --ui-color-primary-400: #38bdf8;
-  --ui-color-primary-500: #0ea5e9;
-  --ui-color-primary-600: #0284c7;
-  --ui-color-primary-700: #0369a1;
-  --ui-color-primary-800: #075985;
-  --ui-color-primary-900: #0b4a6f;
-
-  --ui-primary: var(--ui-color-primary-500);
-
-  /* neutral/text */
-  --ui-color-neutral-700: #374151;
-  --ui-text: var(--ui-color-neutral-700);
-
-  /* primary/other palettes (examples) */
-  --ui-color-primary-500: #0ea5e9;
-  --ui-color-secondary-500: #f97316;
-  --ui-color-error-500: #ef4444;
-  --ui-color-success-500: #22c55e;
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
 }
-.dark {
-  /* optional dark-mode overrides */
-  --ui-color-primary-500: #60a5fa;
-  --ui-primary: var(--ui-color-primary-500);
+
+:root {
+  --color-primary-50: #fff1f1;
+  --color-primary-100: #ffe1e1;
+  --color-primary-200: #ffc7c7;
+  --color-primary-300: #ffa0a0;
+  --color-primary-400: #ff6b6b;
+  --color-primary-500: #d41111;
+  --color-primary-600: #b91c1c;
+  --color-primary-700: #991b1b;
+  --color-primary-800: #7f1d1d;
+  --color-primary-900: #6b1a1a;
+  --color-primary-950: #450a0a;
+
+  --color-secondary-50: #fdf8f0;
+  --color-secondary-100: #faeedd;
+  --color-secondary-200: #f4d9b3;
+  --color-secondary-300: #ecc07e;
+  --color-secondary-400: #e4a24e;
+  --color-secondary-500: #c9a96e;
+  --color-secondary-600: #b8942a;
+  --color-secondary-700: #8f6e1f;
+  --color-secondary-800: #6b501a;
+  --color-secondary-900: #4a3712;
+  --color-secondary-950: #2a1f08;
+
+  --color-neutral-50: #fafafa;
+  --color-neutral-100: #f4f4f5;
+  --color-neutral-200: #e4e4e7;
+  --color-neutral-300: #d4d4d8;
+  --color-neutral-400: #a1a1aa;
+  --color-neutral-500: #71717a;
+  --color-neutral-600: #52525b;
+  --color-neutral-700: #3f3f46;
+  --color-neutral-800: #27272a;
+  --color-neutral-900: #18181b;
+  --color-neutral-950: #09090b;
+
+  --color-success-500: #22c55e;
+  --color-info-500: #3b82f6;
+  --color-warning-500: #f59e0b;
+  --color-error-500: #ef4444;
+
+  --ui-primary: var(--color-primary-500);
+  --ui-color-primary-500: var(--color-primary-500);
+  --ui-color-primary-400: var(--color-primary-400);
+  --ui-color-primary-600: var(--color-primary-600);
+  --ui-color-neutral-700: #6b7280;
+  --ui-text: #fff;
 }
