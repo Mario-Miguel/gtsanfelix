@@ -17,6 +17,7 @@ export interface Play {
   duration: string
   imageUrl?: string
   active: boolean
+  summary: string
 }
 
 export interface Member {

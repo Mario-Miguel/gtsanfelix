@@ -7,7 +7,7 @@
         <p class="text-red-400 text-sm font-semibold uppercase tracking-widest mb-4">Nuestra Historia</p>
         <h1 class="text-4xl md:text-5xl font-bold leading-tight mb-5">La Compañía</h1>
         <p class="text-gray-400 text-lg leading-relaxed">
-          Desde unos humildes comienzos en un garaje hasta convertirnos en referente del teatro amateur en Madrid.
+          Desde unos humildes comienzos en un garaje hasta convertirnos en referente del teatro amateur en Asturies.
         </p>
       </div>
     </section>
@@ -67,6 +67,18 @@
       </div>
     </section>
 
+    <!-- Active productions carousel -->
+    <section class="max-w-7xl mx-auto px-6 py-20">
+      <div class="text-center mb-12">
+        <p class="text-red-400 text-sm font-semibold uppercase tracking-widest mb-3">En Cartelera</p>
+        <h2 class="text-3xl font-bold">Producciones Actuales</h2>
+      </div>
+
+      <ApiState :loading="playsLoading" :error="playsError">
+        <PlaysCarousel :show-inactive="true" :plays="plays ?? []" />
+      </ApiState>
+    </section>
+
     <!-- Team -->
     <section class="max-w-7xl mx-auto px-6 py-20">
       <div class="text-center mb-12">
@@ -95,13 +107,19 @@
 
 <script setup lang="ts">
 
-import { membersApi, type Member } from '../composables/useAdminApi'
+import { membersApi, playsApi, type Member, type Play } from '../composables/useAdminApi'
 import { useApiRequest } from '../composables/useApiRequest'
 import ApiState from './ApiState.vue'
+import PlaysCarousel from './PlaysCarousel.vue'
 
 const { data: team, loading, error } = useApiRequest(() => membersApi.list(), {
   initialData: [] as Member[],
 })
+
+const { data: plays, loading: playsLoading, error: playsError } = useApiRequest(() => playsApi.list(), {
+  initialData: [] as Play[],
+})
+
 
 
 const stats = [

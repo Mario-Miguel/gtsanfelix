@@ -7,7 +7,7 @@
         alt="Teatro" class="absolute inset-0 w-full h-full object-cover" />
       <div class="absolute inset-0 bg-gradient-to-b from-[#221010]/70 via-[#221010]/50 to-[#221010]" />
       <div class="relative z-10 text-center px-6 max-w-3xl mx-auto">
-        <p class="text-red-400 text-sm font-semibold uppercase tracking-widest mb-4">Madrid · Desde 2008</p>
+        <p class="text-red-400 text-sm font-semibold uppercase tracking-widest mb-4">Valdesoto · Desde 2008</p>
         <h1 class="text-5xl md:text-6xl font-bold leading-tight mb-6">
           Donde la pasión<br />se encuentra con el escenario
         </h1>
@@ -41,48 +41,15 @@
       </div>
     </section>
 
-    <!-- Producción Actual -->
+    <!-- Producciones Actuales -->
     <section class="max-w-7xl mx-auto px-6 py-20">
       <div class="flex items-center gap-3 mb-10">
         <span class="material-symbols-outlined text-red-500">star</span>
-        <h2 class="text-2xl font-bold">Producción Actual</h2>
+        <h2 class="text-2xl font-bold">Producciones Actuales</h2>
       </div>
-      <div class="grid md:grid-cols-2 gap-12 items-center">
-        <div class="rounded-lg overflow-hidden">
-          <img
-            src="https://lh3.googleusercontent.com/aida-public/AB6AXuAL8sS813dnam28muC6e3ca9s_1N0weUtmBiLrJFNY9-GRRluNrEqmGjuQyShDSYAJGzJY_uj6ZumfTgW2SozF0mpE3gUfxV5S-kHDJxMFcqA4Mpw7LLtb-1lSdXBKU79NNaumePT1OF4_K4VKPwECC9PkWEM9mUl23cOQuCLM85bGBrVbX0MyrMxZRS-7C5P-DzQF0FJHDOpUgJlnvSIciNqcwcVnG2mNQlCvmCXf4AolQ_CkY0ExIsVDJssUAi-yDWR7CtfS8alE"
-            alt="La Sombra del Silencio" class="w-full h-80 object-cover" />
-        </div>
-        <div>
-          <span
-            class="bg-red-700/30 text-red-400 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider">
-            En Cartelera
-          </span>
-          <h3 class="text-3xl font-bold mt-4 mb-3">La Sombra del Silencio</h3>
-          <p class="text-gray-400 leading-relaxed mb-6">
-            Una exploración profunda sobre los secretos familiares y el peso de las palabras no dichas a través de tres
-            generaciones. Una obra que te dejará sin aliento.
-          </p>
-          <div class="flex flex-col gap-2 text-sm text-gray-300 mb-8">
-            <span class="flex items-center gap-2">
-              <span class="material-symbols-outlined text-red-400 text-base">schedule</span>
-              Jueves — 20:30 hrs
-            </span>
-            <span class="flex items-center gap-2">
-              <span class="material-symbols-outlined text-red-400 text-base">location_on</span>
-              Teatro Principal, Madrid
-            </span>
-            <span class="flex items-center gap-2">
-              <span class="material-symbols-outlined text-red-400 text-base">hourglass_empty</span>
-              120 minutos · €25 por persona
-            </span>
-          </div>
-          <RouterLink to="/calendar"
-            class="bg-red-700 hover:bg-red-600 px-6 py-3 rounded font-medium transition-colors inline-block">
-            Comprar Entradas
-          </RouterLink>
-        </div>
-      </div>
+      <ApiState :loading="playsLoading" :error="playsError">
+        <PlaysCarousel :plays="plays ?? []" />
+      </ApiState>
     </section>
 
     <!-- Próximas Funciones -->
@@ -130,7 +97,7 @@
           <h2 class="text-3xl font-bold mb-5">Fundada en 2008 con una sola misión</h2>
           <p class="text-gray-400 leading-relaxed mb-6">
             G.T. San Félix de Valdesoto nació para ofrecer un espacio profesional donde actores, técnicos y escritores
-            aficionados puedan explorar su arte. Más de 16 años creando magia sobre el escenario en Madrid.
+            aficionados puedan explorar su arte. Más de 16 años creando magia sobre el escenario en Asturies.
           </p>
           <RouterLink to="/about"
             class="text-red-400 hover:text-red-300 font-medium flex items-center gap-1 transition-colors">
@@ -160,7 +127,7 @@
             </div>
             <p class="text-gray-500 text-sm leading-relaxed max-w-xs">
               Llevamos la magia del teatro a cada rincón. Compañía dedicada a la excelencia artística y la divulgación
-              cultural en Madrid.
+              cultural en Asturies.
             </p>
           </div>
           <div>
@@ -184,13 +151,13 @@
             <h4 class="font-semibold mb-4 text-xs uppercase tracking-wider text-gray-400">Contacto</h4>
             <ul class="flex flex-col gap-2 text-sm text-gray-500">
               <li class="flex items-center gap-2">
-                <span class="material-symbols-outlined text-sm">mail</span> info@telonabierto.com
+                <span class="material-symbols-outlined text-sm">mail</span> gtvaldesoto@gmail.com
               </li>
               <li class="flex items-center gap-2">
-                <span class="material-symbols-outlined text-sm">phone</span> +34 912 345 678
+                <span class="material-symbols-outlined text-sm">phone</span> +34 606 58 54 12
               </li>
               <li class="flex items-center gap-2">
-                <span class="material-symbols-outlined text-sm">location_on</span> Madrid, España
+                <span class="material-symbols-outlined text-sm">location_on</span> Valdesoto, Asturies
               </li>
             </ul>
           </div>
@@ -198,10 +165,6 @@
         <div
           class="border-t border-red-900/20 pt-6 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-gray-600">
           <p>© 2024 G.T. San Félix de Valdesoto. Todos los derechos reservados.</p>
-          <div class="flex gap-4">
-            <a href="#" class="hover:text-white transition-colors">Política de Privacidad</a>
-            <a href="#" class="hover:text-white transition-colors">Términos de Servicio</a>
-          </div>
         </div>
       </div>
     </footer>
@@ -210,6 +173,14 @@
 
 <script setup lang="ts">
 import { RouterLink } from 'vue-router'
+import { playsApi, type Play } from '../composables/useAdminApi'
+import { useApiRequest } from '../composables/useApiRequest'
+import ApiState from './ApiState.vue'
+import PlaysCarousel from './PlaysCarousel.vue'
+
+const { data: plays, loading: playsLoading, error: playsError } = useApiRequest(() => playsApi.list(), {
+  initialData: [] as Play[],
+})
 
 const upcomingShows = [
   {

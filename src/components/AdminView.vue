@@ -607,11 +607,11 @@ function formatDate(dateStr: string) {
 // ── Plays CRUD ─────────────────────────────────────────────────────────────
 const showPlayModal = ref(false)
 const editingPlay = ref<Play | null>(null)
-const playForm = reactive({ title: '', author: '', genre: 'Comedia', duration: '', active: false })
+const playForm = reactive({ title: '', author: '', genre: 'Comedia', duration: '', active: false, summary: '' })
 
 function openPlayModal(play?: Play) {
   editingPlay.value = play ?? null
-  Object.assign(playForm, play ? { title: play.title, author: play.author, genre: play.genre, duration: play.duration, active: play.active } : { title: '', author: '', genre: 'Comedia', duration: '', active: false })
+  Object.assign(playForm, play ? { title: play.title, author: play.author, genre: play.genre, duration: play.duration, active: play.active, summary: play.summary } : { title: '', author: '', genre: 'Comedia', duration: '', active: false, summary: '' })
   playsModalError.value = ''
   showPlayModal.value = true
 }

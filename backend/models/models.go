@@ -9,6 +9,7 @@ type Play struct {
 	Duration string `json:"duration"`
 	ImageURL string `json:"imageUrl,omitempty"`
 	Active   bool   `json:"active"`
+	Summary  string `json:"summary"`
 }
 
 // Member represents a member of the theater group.
