@@ -11,17 +11,12 @@
       </div>
 
       <nav class="flex-1 px-3 py-4 flex flex-col gap-1">
-        <button
-          v-for="item in navItems"
-          :key="item.label"
-          :class="[
-            'flex items-center gap-3 px-4 py-2.5 rounded text-sm font-medium w-full text-left transition-colors',
-            activeSection === item.section
-              ? 'bg-red-700/30 text-red-400'
-              : 'text-gray-400 hover:bg-red-900/20 hover:text-white',
-          ]"
-          @click="activeSection = item.section"
-        >
+        <button v-for="item in navItems" :key="item.label" :class="[
+          'flex items-center gap-3 px-4 py-2.5 rounded text-sm font-medium w-full text-left transition-colors',
+          activeSection === item.section
+            ? 'bg-red-700/30 text-red-400'
+            : 'text-gray-400 hover:bg-red-900/20 hover:text-white',
+        ]" @click="activeSection = item.section">
           <span class="material-symbols-outlined text-[18px]">{{ item.icon }}</span>
           {{ item.label }}
         </button>
@@ -38,10 +33,8 @@
             <p class="text-xs text-gray-600">Administrador</p>
           </div>
         </div>
-        <button
-          @click="logout"
-          class="flex items-center gap-2 text-xs text-gray-500 hover:text-red-400 transition-colors w-full"
-        >
+        <button @click="logout"
+          class="flex items-center gap-2 text-xs text-gray-500 hover:text-red-400 transition-colors w-full">
           <span class="material-symbols-outlined text-sm">logout</span>
           Cerrar sesión
         </button>
@@ -57,27 +50,18 @@
           <p class="text-xs text-gray-500 mt-0.5">{{ currentMeta.subtitle }}</p>
         </div>
         <div class="flex items-center gap-3">
-          <button
-            v-if="activeSection === 'dashboard' || activeSection === 'repertoire'"
-            @click="openPlayModal()"
-            class="flex items-center gap-2 bg-red-700 hover:bg-red-600 px-4 py-2 rounded text-sm font-medium transition-colors"
-          >
+          <button v-if="activeSection === 'dashboard' || activeSection === 'repertoire'" @click="openPlayModal()"
+            class="flex items-center gap-2 bg-red-700 hover:bg-red-600 px-4 py-2 rounded text-sm font-medium transition-colors">
             <span class="material-symbols-outlined text-sm">add</span>
             Nueva Obra
           </button>
-          <button
-            v-if="activeSection === 'calendar'"
-            @click="openPerfModal()"
-            class="flex items-center gap-2 bg-red-700 hover:bg-red-600 px-4 py-2 rounded text-sm font-medium transition-colors"
-          >
+          <button v-if="activeSection === 'calendar'" @click="openPerfModal()"
+            class="flex items-center gap-2 bg-red-700 hover:bg-red-600 px-4 py-2 rounded text-sm font-medium transition-colors">
             <span class="material-symbols-outlined text-sm">add</span>
             Nueva Función
           </button>
-          <button
-            v-if="activeSection === 'users'"
-            @click="openMemberModal()"
-            class="flex items-center gap-2 bg-red-700 hover:bg-red-600 px-4 py-2 rounded text-sm font-medium transition-colors"
-          >
+          <button v-if="activeSection === 'users'" @click="openMemberModal()"
+            class="flex items-center gap-2 bg-red-700 hover:bg-red-600 px-4 py-2 rounded text-sm font-medium transition-colors">
             <span class="material-symbols-outlined text-sm">add</span>
             Nuevo Miembro
           </button>
@@ -85,10 +69,8 @@
       </header>
 
       <!-- API error banner -->
-      <div
-        v-if="apiError"
-        class="bg-red-900/30 border-b border-red-800/40 px-8 py-3 text-red-400 text-sm flex items-center gap-2"
-      >
+      <div v-if="apiError"
+        class="bg-red-900/30 border-b border-red-800/40 px-8 py-3 text-red-400 text-sm flex items-center gap-2">
         <span class="material-symbols-outlined text-sm">warning</span>
         {{ apiError }}
       </div>
@@ -104,11 +86,8 @@
         <!-- ── DASHBOARD ── -->
         <template v-if="activeSection === 'dashboard'">
           <div class="grid grid-cols-2 xl:grid-cols-4 gap-5 mb-8">
-            <div
-              v-for="stat in computedStats"
-              :key="stat.label"
-              class="bg-[#1a0a0a] border border-red-900/20 rounded-lg p-5"
-            >
+            <div v-for="stat in computedStats" :key="stat.label"
+              class="bg-[#1a0a0a] border border-red-900/20 rounded-lg p-5">
               <div class="flex items-center justify-between mb-3">
                 <span class="material-symbols-outlined text-red-500">{{ stat.icon }}</span>
               </div>
@@ -122,7 +101,8 @@
             <div class="xl:col-span-3 bg-[#1a0a0a] border border-red-900/20 rounded-lg overflow-hidden">
               <div class="flex items-center justify-between px-6 py-4 border-b border-red-900/20">
                 <h2 class="font-semibold text-sm">Gestión de Repertorio</h2>
-                <button @click="activeSection = 'repertoire'" class="text-red-400 hover:text-red-300 text-xs transition-colors">
+                <button @click="activeSection = 'repertoire'"
+                  class="text-red-400 hover:text-red-300 text-xs transition-colors">
                   Ver todo →
                 </button>
               </div>
@@ -135,19 +115,18 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr
-                    v-for="play in plays.slice(0, 5)"
-                    :key="play.id"
-                    class="border-b border-red-900/10 hover:bg-red-900/5 transition-colors"
-                  >
+                  <tr v-for="play in plays.slice(0, 5)" :key="play.id"
+                    class="border-b border-red-900/10 hover:bg-red-900/5 transition-colors">
                     <td class="px-6 py-3 font-medium">{{ play.title }}</td>
                     <td class="px-6 py-3 text-gray-400 hidden md:table-cell">{{ play.author }}</td>
                     <td class="px-6 py-3 text-right">
                       <div class="flex items-center justify-end gap-2">
-                        <button @click="openPlayModal(play)" class="p-1 text-gray-500 hover:text-white transition-colors">
+                        <button @click="openPlayModal(play)"
+                          class="p-1 text-gray-500 hover:text-white transition-colors">
                           <span class="material-symbols-outlined text-sm">edit</span>
                         </button>
-                        <button @click="removePlay(play.id)" class="p-1 text-gray-500 hover:text-red-400 transition-colors">
+                        <button @click="removePlay(play.id)"
+                          class="p-1 text-gray-500 hover:text-red-400 transition-colors">
                           <span class="material-symbols-outlined text-sm">delete</span>
                         </button>
                       </div>
@@ -161,16 +140,14 @@
             <div class="xl:col-span-2 bg-[#1a0a0a] border border-red-900/20 rounded-lg overflow-hidden">
               <div class="flex items-center justify-between px-6 py-4 border-b border-red-900/20">
                 <h2 class="font-semibold text-sm">Próximas Funciones</h2>
-                <button @click="activeSection = 'calendar'" class="text-red-400 hover:text-red-300 text-xs transition-colors">
+                <button @click="activeSection = 'calendar'"
+                  class="text-red-400 hover:text-red-300 text-xs transition-colors">
                   Ver todo →
                 </button>
               </div>
               <div class="divide-y divide-red-900/10">
-                <div
-                  v-for="perf in performances.slice(0, 5)"
-                  :key="perf.id"
-                  class="px-6 py-4 hover:bg-red-900/5 transition-colors"
-                >
+                <div v-for="perf in performances.slice(0, 5)" :key="perf.id"
+                  class="px-6 py-4 hover:bg-red-900/5 transition-colors">
                   <div class="flex items-start gap-3">
                     <div class="bg-red-700/20 text-red-400 rounded px-2 py-1 text-center min-w-[44px] flex-shrink-0">
                       <p class="text-xs leading-none">{{ monthLabel(perf.date) }}</p>
@@ -195,18 +172,13 @@
           <div class="bg-[#1a0a0a] border border-red-900/20 rounded-lg overflow-hidden">
             <div class="px-6 py-4 border-b border-red-900/20 flex items-center gap-4">
               <div class="flex-1 relative">
-                <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-600 text-sm">search</span>
-                <input
-                  v-model="searchQuery"
-                  type="text"
-                  placeholder="Buscar obra..."
-                  class="w-full bg-[#2d1515] border border-red-900/20 rounded pl-9 pr-4 py-2 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-red-600 transition-colors"
-                />
+                <span
+                  class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-600 text-sm">search</span>
+                <input v-model="searchQuery" type="text" placeholder="Buscar obra..."
+                  class="w-full bg-[#2d1515] border border-red-900/20 rounded pl-9 pr-4 py-2 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-red-600 transition-colors" />
               </div>
-              <select
-                v-model="filterGenre"
-                class="bg-[#2d1515] border border-red-900/20 rounded px-3 py-2 text-sm text-gray-300 focus:outline-none"
-              >
+              <select v-model="filterGenre"
+                class="bg-[#2d1515] border border-red-900/20 rounded px-3 py-2 text-sm text-gray-300 focus:outline-none">
                 <option value="">Todos los géneros</option>
                 <option v-for="g in genres" :key="g">{{ g }}</option>
               </select>
@@ -222,11 +194,8 @@
                 </tr>
               </thead>
               <tbody>
-                <tr
-                  v-for="play in filteredPlays"
-                  :key="play.id"
-                  class="border-b border-red-900/10 hover:bg-red-900/5 transition-colors"
-                >
+                <tr v-for="play in filteredPlays" :key="play.id"
+                  class="border-b border-red-900/10 hover:bg-red-900/5 transition-colors">
                   <td class="px-6 py-3 font-medium">{{ play.title }}</td>
                   <td class="px-6 py-3 text-gray-400">{{ play.author }}</td>
                   <td class="px-6 py-3">
@@ -235,10 +204,12 @@
                   <td class="px-6 py-3 text-gray-400">{{ play.duration }}</td>
                   <td class="px-6 py-3 text-right">
                     <div class="flex items-center justify-end gap-2">
-                      <button @click="openPlayModal(play)" class="p-1.5 text-gray-500 hover:text-white hover:bg-red-900/20 rounded transition-colors">
+                      <button @click="openPlayModal(play)"
+                        class="p-1.5 text-gray-500 hover:text-white hover:bg-red-900/20 rounded transition-colors">
                         <span class="material-symbols-outlined text-sm">edit</span>
                       </button>
-                      <button @click="removePlay(play.id)" class="p-1.5 text-gray-500 hover:text-red-400 hover:bg-red-900/20 rounded transition-colors">
+                      <button @click="removePlay(play.id)"
+                        class="p-1.5 text-gray-500 hover:text-red-400 hover:bg-red-900/20 rounded transition-colors">
                         <span class="material-symbols-outlined text-sm">delete</span>
                       </button>
                     </div>
@@ -267,29 +238,21 @@
                 </tr>
               </thead>
               <tbody>
-                <tr
-                  v-for="perf in performances"
-                  :key="perf.id"
-                  class="border-b border-red-900/10 hover:bg-red-900/5 transition-colors"
-                >
+                <tr v-for="perf in performances" :key="perf.id"
+                  class="border-b border-red-900/10 hover:bg-red-900/5 transition-colors">
                   <td class="px-6 py-3 font-medium">{{ formatDate(perf.date) }}</td>
                   <td class="px-6 py-3">{{ perf.playTitle }}</td>
                   <td class="px-6 py-3 text-gray-400">{{ perf.time }}</td>
                   <td class="px-6 py-3 text-gray-400">{{ perf.venue }}</td>
-                  <td class="px-6 py-3">
-                    <div class="flex items-center gap-2">
-                      <div class="w-20 bg-red-900/20 rounded-full h-1.5">
-                        <div class="bg-red-600 h-1.5 rounded-full" :style="{ width: perf.sold + '%' }" />
-                      </div>
-                      <span class="text-xs text-gray-500">{{ perf.sold }}%</span>
-                    </div>
-                  </td>
+
                   <td class="px-6 py-3 text-right">
                     <div class="flex items-center justify-end gap-2">
-                      <button @click="openPerfModal(perf)" class="p-1.5 text-gray-500 hover:text-white hover:bg-red-900/20 rounded transition-colors">
+                      <button @click="openPerfModal(perf)"
+                        class="p-1.5 text-gray-500 hover:text-white hover:bg-red-900/20 rounded transition-colors">
                         <span class="material-symbols-outlined text-sm">edit</span>
                       </button>
-                      <button @click="removePerformance(perf.id)" class="p-1.5 text-gray-500 hover:text-red-400 hover:bg-red-900/20 rounded transition-colors">
+                      <button @click="removePerformance(perf.id)"
+                        class="p-1.5 text-gray-500 hover:text-red-400 hover:bg-red-900/20 rounded transition-colors">
                         <span class="material-symbols-outlined text-sm">delete</span>
                       </button>
                     </div>
@@ -317,11 +280,8 @@
                 </tr>
               </thead>
               <tbody>
-                <tr
-                  v-for="member in members"
-                  :key="member.id"
-                  class="border-b border-red-900/10 hover:bg-red-900/5 transition-colors"
-                >
+                <tr v-for="member in members" :key="member.id"
+                  class="border-b border-red-900/10 hover:bg-red-900/5 transition-colors">
                   <td class="px-6 py-3">
                     <div class="flex items-center gap-3">
                       <div class="w-8 h-8 rounded-full bg-red-800/50 flex items-center justify-center">
@@ -332,18 +292,14 @@
                   </td>
                   <td class="px-6 py-3 text-gray-400">{{ member.email }}</td>
                   <td class="px-6 py-3 text-gray-300">{{ member.role }}</td>
-                  <td class="px-6 py-3">
-                    <span :class="['flex items-center gap-1.5 text-xs w-fit', member.active ? 'text-green-400' : 'text-gray-500']">
-                      <span class="w-1.5 h-1.5 rounded-full" :class="member.active ? 'bg-green-400' : 'bg-gray-600'" />
-                      {{ member.active ? 'Activo' : 'Inactivo' }}
-                    </span>
-                  </td>
                   <td class="px-6 py-3 text-right">
                     <div class="flex items-center justify-end gap-2">
-                      <button @click="openMemberModal(member)" class="p-1.5 text-gray-500 hover:text-white hover:bg-red-900/20 rounded transition-colors">
+                      <button @click="openMemberModal(member)"
+                        class="p-1.5 text-gray-500 hover:text-white hover:bg-red-900/20 rounded transition-colors">
                         <span class="material-symbols-outlined text-sm">edit</span>
                       </button>
-                      <button @click="removeMember(member.id)" class="p-1.5 text-gray-500 hover:text-red-400 hover:bg-red-900/20 rounded transition-colors">
+                      <button @click="removeMember(member.id)"
+                        class="p-1.5 text-gray-500 hover:text-red-400 hover:bg-red-900/20 rounded transition-colors">
                         <span class="material-symbols-outlined text-sm">delete</span>
                       </button>
                     </div>
@@ -365,17 +321,21 @@
               <div class="flex flex-col gap-4">
                 <div>
                   <label class="block text-xs text-gray-500 mb-1.5 uppercase tracking-wider">Nombre</label>
-                  <input type="text" value="G.T. San Félix de Valdesoto" class="w-full bg-[#2d1515] border border-red-900/20 rounded px-4 py-2.5 text-sm text-white focus:outline-none focus:border-red-600 transition-colors" />
+                  <input type="text" value="G.T. San Félix de Valdesoto"
+                    class="w-full bg-[#2d1515] border border-red-900/20 rounded px-4 py-2.5 text-sm text-white focus:outline-none focus:border-red-600 transition-colors" />
                 </div>
                 <div>
                   <label class="block text-xs text-gray-500 mb-1.5 uppercase tracking-wider">Email de contacto</label>
-                  <input type="email" value="hola@telonabierto.com" class="w-full bg-[#2d1515] border border-red-900/20 rounded px-4 py-2.5 text-sm text-white focus:outline-none focus:border-red-600 transition-colors" />
+                  <input type="email" value="hola@telonabierto.com"
+                    class="w-full bg-[#2d1515] border border-red-900/20 rounded px-4 py-2.5 text-sm text-white focus:outline-none focus:border-red-600 transition-colors" />
                 </div>
                 <div>
                   <label class="block text-xs text-gray-500 mb-1.5 uppercase tracking-wider">Dirección</label>
-                  <input type="text" value="Calle de la Comedia, 42, 28004 Madrid" class="w-full bg-[#2d1515] border border-red-900/20 rounded px-4 py-2.5 text-sm text-white focus:outline-none focus:border-red-600 transition-colors" />
+                  <input type="text" value="Calle de la Comedia, 42, 28004 Madrid"
+                    class="w-full bg-[#2d1515] border border-red-900/20 rounded px-4 py-2.5 text-sm text-white focus:outline-none focus:border-red-600 transition-colors" />
                 </div>
-                <button class="self-start bg-red-700 hover:bg-red-600 px-5 py-2 rounded text-sm font-medium transition-colors">
+                <button
+                  class="self-start bg-red-700 hover:bg-red-600 px-5 py-2 rounded text-sm font-medium transition-colors">
                   Guardar Cambios
                 </button>
               </div>
@@ -389,7 +349,8 @@
 
   <!-- ── Modal: Obra ── -->
   <Teleport to="body">
-    <div v-if="showPlayModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm" @click.self="showPlayModal = false">
+    <div v-if="showPlayModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm"
+      @click.self="showPlayModal = false">
       <div class="bg-[#1a0a0a] border border-red-900/30 rounded-lg w-full max-w-lg mx-4 p-6">
         <div class="flex items-center justify-between mb-6">
           <h2 class="font-bold text-lg">{{ editingPlay ? 'Editar Obra' : 'Nueva Obra' }}</h2>
@@ -424,8 +385,10 @@
           </div>
           <p v-if="playsModalError" class="text-red-400 text-xs">{{ playsModalError }}</p>
           <div class="flex justify-end gap-3 mt-2">
-            <button type="button" @click="showPlayModal = false" class="px-5 py-2 text-sm text-gray-400 hover:text-white border border-red-900/30 rounded transition-colors">Cancelar</button>
-            <button type="submit" :disabled="playsSaving" class="px-5 py-2 text-sm bg-red-700 hover:bg-red-600 disabled:opacity-50 rounded font-medium transition-colors">
+            <button type="button" @click="showPlayModal = false"
+              class="px-5 py-2 text-sm text-gray-400 hover:text-white border border-red-900/30 rounded transition-colors">Cancelar</button>
+            <button type="submit" :disabled="playsSaving"
+              class="px-5 py-2 text-sm bg-red-700 hover:bg-red-600 disabled:opacity-50 rounded font-medium transition-colors">
               {{ playsSaving ? 'Guardando...' : editingPlay ? 'Guardar' : 'Añadir' }}
             </button>
           </div>
@@ -436,7 +399,8 @@
 
   <!-- ── Modal: Función / Performance ── -->
   <Teleport to="body">
-    <div v-if="showPerfModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm" @click.self="showPerfModal = false">
+    <div v-if="showPerfModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm"
+      @click.self="showPerfModal = false">
       <div class="bg-[#1a0a0a] border border-red-900/30 rounded-lg w-full max-w-lg mx-4 p-6">
         <div class="flex items-center justify-between mb-6">
           <h2 class="font-bold text-lg">{{ editingPerf ? 'Editar Función' : 'Nueva Función' }}</h2>
@@ -467,22 +431,12 @@
             <input v-model="perfForm.venue" type="text" required placeholder="Teatro Principal"
               class="w-full bg-[#2d1515] border border-red-900/20 rounded px-4 py-2.5 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-red-600 transition-colors" />
           </div>
-          <div class="grid grid-cols-2 gap-4">
-            <div>
-              <label class="block text-xs text-gray-500 mb-1.5 uppercase tracking-wider">Precio</label>
-              <input v-model="perfForm.price" type="text" placeholder="€20"
-                class="w-full bg-[#2d1515] border border-red-900/20 rounded px-4 py-2.5 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-red-600 transition-colors" />
-            </div>
-            <div>
-              <label class="block text-xs text-gray-500 mb-1.5 uppercase tracking-wider">Ocupación (%)</label>
-              <input v-model.number="perfForm.sold" type="number" min="0" max="100" placeholder="0"
-                class="w-full bg-[#2d1515] border border-red-900/20 rounded px-4 py-2.5 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-red-600 transition-colors" />
-            </div>
-          </div>
           <p v-if="perfsModalError" class="text-red-400 text-xs">{{ perfsModalError }}</p>
           <div class="flex justify-end gap-3 mt-2">
-            <button type="button" @click="showPerfModal = false" class="px-5 py-2 text-sm text-gray-400 hover:text-white border border-red-900/30 rounded transition-colors">Cancelar</button>
-            <button type="submit" :disabled="perfsSaving" class="px-5 py-2 text-sm bg-red-700 hover:bg-red-600 disabled:opacity-50 rounded font-medium transition-colors">
+            <button type="button" @click="showPerfModal = false"
+              class="px-5 py-2 text-sm text-gray-400 hover:text-white border border-red-900/30 rounded transition-colors">Cancelar</button>
+            <button type="submit" :disabled="perfsSaving"
+              class="px-5 py-2 text-sm bg-red-700 hover:bg-red-600 disabled:opacity-50 rounded font-medium transition-colors">
               {{ perfsSaving ? 'Guardando...' : editingPerf ? 'Guardar' : 'Añadir' }}
             </button>
           </div>
@@ -493,7 +447,8 @@
 
   <!-- ── Modal: Miembro ── -->
   <Teleport to="body">
-    <div v-if="showMemberModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm" @click.self="showMemberModal = false">
+    <div v-if="showMemberModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm"
+      @click.self="showMemberModal = false">
       <div class="bg-[#1a0a0a] border border-red-900/30 rounded-lg w-full max-w-lg mx-4 p-6">
         <div class="flex items-center justify-between mb-6">
           <h2 class="font-bold text-lg">{{ editingMember ? 'Editar Miembro' : 'Nuevo Miembro' }}</h2>
@@ -526,8 +481,10 @@
           </label>
           <p v-if="membersModalError" class="text-red-400 text-xs">{{ membersModalError }}</p>
           <div class="flex justify-end gap-3 mt-2">
-            <button type="button" @click="showMemberModal = false" class="px-5 py-2 text-sm text-gray-400 hover:text-white border border-red-900/30 rounded transition-colors">Cancelar</button>
-            <button type="submit" :disabled="membersSaving" class="px-5 py-2 text-sm bg-red-700 hover:bg-red-600 disabled:opacity-50 rounded font-medium transition-colors">
+            <button type="button" @click="showMemberModal = false"
+              class="px-5 py-2 text-sm text-gray-400 hover:text-white border border-red-900/30 rounded transition-colors">Cancelar</button>
+            <button type="submit" :disabled="membersSaving"
+              class="px-5 py-2 text-sm bg-red-700 hover:bg-red-600 disabled:opacity-50 rounded font-medium transition-colors">
               {{ membersSaving ? 'Guardando...' : editingMember ? 'Guardar' : 'Añadir' }}
             </button>
           </div>
@@ -615,14 +572,6 @@ const filteredPlays = computed(() =>
 const computedStats = computed(() => [
   { label: 'Obras en Repertorio', value: plays.value.length, icon: 'menu_book' },
   { label: 'Funciones Programadas', value: performances.value.length, icon: 'event' },
-  { label: 'Miembros Activos', value: members.value.filter((m) => m.active).length, icon: 'group' },
-  {
-    label: 'Ocupación Media',
-    value: performances.value.length
-      ? Math.round(performances.value.reduce((a, p) => a + p.sold, 0) / performances.value.length) + '%'
-      : '0%',
-    icon: 'confirmation_number',
-  },
 ])
 
 async function loadData() {
@@ -658,11 +607,11 @@ function formatDate(dateStr: string) {
 // ── Plays CRUD ─────────────────────────────────────────────────────────────
 const showPlayModal = ref(false)
 const editingPlay = ref<Play | null>(null)
-const playForm = reactive({ title: '', author: '', genre: 'Drama', duration: '' })
+const playForm = reactive({ title: '', author: '', genre: 'Comedia', duration: '', active: false })
 
 function openPlayModal(play?: Play) {
   editingPlay.value = play ?? null
-  Object.assign(playForm, play ? { title: play.title, author: play.author, genre: play.genre, duration: play.duration } : { title: '', author: '', genre: 'Drama', duration: '' })
+  Object.assign(playForm, play ? { title: play.title, author: play.author, genre: play.genre, duration: play.duration, active: play.active } : { title: '', author: '', genre: 'Comedia', duration: '', active: false })
   playsModalError.value = ''
   showPlayModal.value = true
 }
@@ -684,11 +633,11 @@ async function removePlay(id: number) {
 // ── Performances CRUD ─────────────────────────────────────────────────────
 const showPerfModal = ref(false)
 const editingPerf = ref<Performance | null>(null)
-const perfForm = reactive({ playId: 0, playTitle: '', date: '', time: '', venue: '', sold: 0, price: '' })
+const perfForm = reactive({ playId: 0, playTitle: '', date: '', time: '', venue: '' })
 
 function openPerfModal(perf?: Performance) {
   editingPerf.value = perf ?? null
-  Object.assign(perfForm, perf ?? { playId: 0, playTitle: '', date: '', time: '', venue: '', sold: 0, price: '' })
+  Object.assign(perfForm, perf ?? { playId: 0, playTitle: '', date: '', time: '', venue: '' })
   perfsModalError.value = ''
   showPerfModal.value = true
 }

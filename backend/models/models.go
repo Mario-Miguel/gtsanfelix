@@ -8,15 +8,15 @@ type Play struct {
 	Genre    string `json:"genre"`
 	Duration string `json:"duration"`
 	ImageURL string `json:"imageUrl,omitempty"`
+	Active   bool   `json:"active"`
 }
 
 // Member represents a member of the theater group.
 type Member struct {
-	ID     int    `json:"id"`
-	Name   string `json:"name"`
-	Role   string `json:"role"`
-	Email  string `json:"email"`
-	Active bool   `json:"active"`
+	ID    int    `json:"id"`
+	Name  string `json:"name"`
+	Role  string `json:"role"`
+	Email string `json:"email"`
 }
 
 // Performance represents a scheduled show on the calendar.
@@ -27,8 +27,6 @@ type Performance struct {
 	Date      string `json:"date"`
 	Time      string `json:"time"`
 	Venue     string `json:"venue"`
-	Sold      int    `json:"sold"` // percentage sold (0-100)
-	Price     string `json:"price,omitempty"`
 }
 
 // User is an admin account (password is never serialised to JSON).

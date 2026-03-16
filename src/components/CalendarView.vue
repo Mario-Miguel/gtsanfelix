@@ -16,10 +16,8 @@
       <div class="max-w-7xl mx-auto px-6 py-3 flex items-center gap-4 flex-wrap">
         <div class="flex items-center gap-2 ml-auto text-sm">
           <span class="material-symbols-outlined text-red-400 text-sm">filter_list</span>
-          <select
-            v-model="filterVenue"
-            class="bg-[#2d1515] border border-red-900/30 rounded px-3 py-2 text-sm text-gray-300 focus:outline-none focus:border-red-600"
-          >
+          <select v-model="filterVenue"
+            class="bg-[#2d1515] border border-red-900/30 rounded px-3 py-2 text-sm text-gray-300 focus:outline-none focus:border-red-600">
             <option value="">Todas las sedes</option>
             <option v-for="v in uniqueVenues" :key="v">{{ v }}</option>
           </select>
@@ -37,17 +35,10 @@
             Hoy — {{ todayLabel }}
           </h2>
           <div class="grid md:grid-cols-2 gap-6">
-            <article
-              v-for="perf in todayPerfs"
-              :key="perf.id"
-              class="bg-[#2d1515]/60 border border-red-900/20 rounded-lg p-6 hover:border-red-700/40 transition-colors"
-            >
+            <article v-for="perf in todayPerfs" :key="perf.id"
+              class="bg-[#2d1515]/60 border border-red-900/20 rounded-lg p-6 hover:border-red-700/40 transition-colors">
               <div class="flex items-center justify-between mb-4">
                 <span class="bg-red-700/30 text-red-400 text-xs px-3 py-1 rounded-full">HOY</span>
-                <span v-if="perf.sold > 75" class="text-xs text-yellow-500 flex items-center gap-1">
-                  <span class="material-symbols-outlined text-xs">local_fire_department</span>
-                  Pocas entradas
-                </span>
               </div>
               <h3 class="font-bold text-xl mb-3">{{ perf.playTitle }}</h3>
               <div class="flex flex-wrap gap-4 text-sm text-gray-400 mb-5">
@@ -59,24 +50,6 @@
                   <span class="material-symbols-outlined text-sm">location_on</span>
                   {{ perf.venue }}
                 </span>
-                <span v-if="perf.price" class="flex items-center gap-1.5">
-                  <span class="material-symbols-outlined text-sm">payments</span>
-                  {{ perf.price }}
-                </span>
-              </div>
-              <div class="flex items-center justify-between">
-                <div class="flex-1 mr-4">
-                  <div class="flex justify-between text-xs text-gray-600 mb-1">
-                    <span>Ocupación</span>
-                    <span>{{ perf.sold }}%</span>
-                  </div>
-                  <div class="bg-red-900/20 rounded-full h-1.5">
-                    <div class="bg-red-600 h-1.5 rounded-full transition-all" :style="{ width: perf.sold + '%' }" />
-                  </div>
-                </div>
-                <RouterLink to="/contact" class="bg-red-700 hover:bg-red-600 text-white text-sm px-4 py-2 rounded transition-colors flex-shrink-0">
-                  Reservar
-                </RouterLink>
               </div>
             </article>
           </div>
@@ -90,11 +63,8 @@
           </h2>
 
           <div v-if="upcomingPerfs.length > 0" class="flex flex-col gap-4">
-            <article
-              v-for="perf in upcomingPerfs"
-              :key="perf.id"
-              class="bg-[#2d1515]/60 border border-red-900/20 rounded-lg px-6 py-4 flex items-center gap-6 hover:border-red-700/40 transition-colors"
-            >
+            <article v-for="perf in upcomingPerfs" :key="perf.id"
+              class="bg-[#2d1515]/60 border border-red-900/20 rounded-lg px-6 py-4 flex items-center gap-6 hover:border-red-700/40 transition-colors">
               <div class="text-center bg-red-700/20 text-red-400 rounded px-4 py-2 min-w-[60px] flex-shrink-0">
                 <p class="text-xs font-medium">{{ monthLabel(perf.date) }}</p>
                 <p class="text-2xl font-bold leading-none">{{ dayLabel(perf.date) }}</p>
@@ -110,25 +80,8 @@
                     <span class="material-symbols-outlined text-xs">schedule</span>
                     {{ perf.time }} hrs
                   </span>
-                  <span v-if="perf.price" class="flex items-center gap-1">
-                    <span class="material-symbols-outlined text-xs">payments</span>
-                    {{ perf.price }}
-                  </span>
                 </p>
               </div>
-              <!-- Sold bar (compact) -->
-              <div class="hidden sm:flex items-center gap-2 min-w-[80px]">
-                <div class="w-16 bg-red-900/20 rounded-full h-1.5">
-                  <div class="bg-red-600 h-1.5 rounded-full" :style="{ width: perf.sold + '%' }" />
-                </div>
-                <span class="text-xs text-gray-600">{{ perf.sold }}%</span>
-              </div>
-              <RouterLink
-                to="/contact"
-                class="text-red-400 hover:text-red-300 text-sm font-medium transition-colors flex items-center gap-1 flex-shrink-0"
-              >
-                Reservar <span class="material-symbols-outlined text-sm">chevron_right</span>
-              </RouterLink>
             </article>
           </div>
 
@@ -147,15 +100,13 @@
             Sedes
           </h2>
           <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-            <div
-              v-for="venue in uniqueVenues"
-              :key="venue"
-              class="bg-[#2d1515]/60 border border-red-900/20 rounded-lg p-5 flex items-center gap-4"
-            >
+            <div v-for="venue in uniqueVenues" :key="venue"
+              class="bg-[#2d1515]/60 border border-red-900/20 rounded-lg p-5 flex items-center gap-4">
               <span class="material-symbols-outlined text-red-500 text-3xl">theater_comedy</span>
               <div>
                 <h4 class="font-semibold">{{ venue }}</h4>
-                <p class="text-gray-500 text-sm">{{ venueCounts[venue] }} función{{ venueCounts[venue] !== 1 ? 'es' : '' }} programada{{ venueCounts[venue] !== 1 ? 's' : '' }}</p>
+                <p class="text-gray-500 text-sm">{{ venueCounts[venue] }} función{{ venueCounts[venue] !== 1 ? 'es' : ''
+                  }} programada{{ venueCounts[venue] !== 1 ? 's' : '' }}</p>
               </div>
             </div>
           </div>
@@ -167,7 +118,6 @@
 
 <script setup lang="ts">
 import { ref, computed } from 'vue'
-import { RouterLink } from 'vue-router'
 import { performancesApi, type Performance } from '../composables/useAdminApi'
 import { useApiRequest } from '../composables/useApiRequest'
 import ApiState from './ApiState.vue'
@@ -223,9 +173,9 @@ const uniqueVenues = computed(() => [...new Set((performances.value ?? []).map((
 
 const venueCounts = computed(() => {
   const counts: Record<string, number> = {}
-  ;(performances.value ?? []).forEach((p) => {
-    counts[p.venue] = (counts[p.venue] ?? 0) + 1
-  })
+    ; (performances.value ?? []).forEach((p) => {
+      counts[p.venue] = (counts[p.venue] ?? 0) + 1
+    })
   return counts
 })
 </script>

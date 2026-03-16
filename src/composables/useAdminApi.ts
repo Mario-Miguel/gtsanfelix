@@ -16,6 +16,7 @@ export interface Play {
   genre: string
   duration: string
   imageUrl?: string
+  active: boolean
 }
 
 export interface Member {
@@ -23,7 +24,6 @@ export interface Member {
   name: string
   role: string
   email: string
-  active: boolean
   quote?: string
 }
 
@@ -34,8 +34,6 @@ export interface Performance {
   date: string
   time: string
   venue: string
-  sold: number
-  price?: string
 }
 
 export interface LoginResponse {

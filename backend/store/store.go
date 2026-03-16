@@ -32,33 +32,31 @@ func New() *Store {
 		nextPerfID:   6,
 
 		users: []models.User{
-			{ID: 1, Email: "admin@telonabierto.com", Password: string(adminHash), Name: "Admin", Role: "admin"},
+			{ID: 1, Email: "gtvaldesoto@gmail.com", Password: string(adminHash), Name: "Admin", Role: "admin"},
 		},
 
 		plays: []models.Play{
-			{ID: 1, Title: "Les desventures de Xuacu", Author: "Federico García Lorca", Genre: "Drama", Duration: "90 min"},
-			{ID: 2, Title: "Esperando a Godot", Author: "Samuel Beckett", Genre: "Teatro del Absurdo", Duration: "120 min"},
-			{ID: 3, Title: "Bodas de Sangre", Author: "Federico García Lorca", Genre: "Tragedia", Duration: "105 min"},
-			{ID: 4, Title: "Antígona", Author: "Sófocles", Genre: "Tragedia", Duration: "80 min"},
-			{ID: 5, Title: "Hamlet", Author: "William Shakespeare", Genre: "Clásico", Duration: "180 min"},
-			{ID: 6, Title: "La Cantante Calva", Author: "Eugène Ionesco", Genre: "Teatro del Absurdo", Duration: "70 min"},
+			{ID: 1, Title: "La Fonda", Author: "Pepín García", Genre: "Comedia", Duration: "80 min", Active: true},
+			{ID: 2, Title: "Al Loro", Author: "Pepín García", Genre: "Comedia", Duration: "80 min", Active: true},
+			{ID: 3, Title: "Cróniques de Valdesoto", Author: "Pepín García", Genre: "Comedia", Duration: "60 - 80 min", Active: true},
 		},
 
 		members: []models.Member{
-			{ID: 1, Name: "Pepín García", Role: "Actor & Director & Autor", Email: "rmendez@telonabierto.com", Active: true, },
-			{ID: 2, Name: "Nacho Martínez", Role: "Actor & Director", Email: "ecastro@telonabierto.com", Active: true, },
-			{ID: 3, Name: "Cristina Palacio", Role: "Actriz", Email: "msoler@telonabierto.com", Active: true, },
-			{ID: 4, Name: "Alex Cueto", Role: "Actor", Email: "svalls@telonabierto.com", Active: true, },
-			{ID: 5, Name: "Cristina García", Role: "Actriz", Email: "cruiz@telonabierto.com", Active: true, },
-			{ID: 6, Name: "Mario Miguel", Role: "Técnico de luces y sonido", Email: "cruiz@telonabierto.com", Active: true, },
+			{ID: 1, Name: "Pepín García", Role: "Actor & Director & Autor", Email: "",  },
+			{ID: 2, Name: "Nacho Martínez", Role: "Actor & Director", Email: "", },
+			{ID: 3, Name: "Cristina Palacio", Role: "Actriz", Email: "", },
+			{ID: 4, Name: "Alex Cueto", Role: "Actor", Email: "", },
+			{ID: 5, Name: "Cristina García", Role: "Actriz", Email: "", },
+			{ID: 6, Name: "Alba Martínez", Role: "Actriz", Email: "", },
+			{ID: 7, Name: "Mario Miguel", Role: "Técnico de luces y sonido", Email: "", },
 		},
 
 		performances: []models.Performance{
-			{ID: 1, PlayID: 1, PlayTitle: "La Casa de Bernarda Alba", Date: "2024-11-05", Time: "20:00", Venue: "Teatro Principal", Sold: 87, Price: "€20"},
-			{ID: 2, PlayID: 1, PlayTitle: "Cyrano de Bergerac", Date: "2024-11-18", Time: "19:30", Venue: "Teatro La Latina", Sold: 64, Price: "€18"},
-			{ID: 3, PlayID: 3, PlayTitle: "Bodas de Sangre", Date: "2024-12-02", Time: "20:30", Venue: "Teatro del Barrio", Sold: 42, Price: "€15"},
-			{ID: 4, PlayID: 5, PlayTitle: "Midsummer Night", Date: "2024-12-10", Time: "20:00", Venue: "Teatro del Barrio", Sold: 31, Price: "€18"},
-			{ID: 5, PlayID: 2, PlayTitle: "Esperando a Godot", Date: "2024-12-15", Time: "19:00", Venue: "Teatro Principal", Sold: 55, Price: "€20"},
+			{ID: 1, PlayID: 1, PlayTitle: "La Casa de Bernarda Alba", Date: "2024-11-05", Time: "20:00", Venue: "Teatro Principal",},
+			{ID: 2, PlayID: 1, PlayTitle: "Cyrano de Bergerac", Date: "2024-11-18", Time: "19:30", Venue: "Teatro La Latina", },
+			{ID: 3, PlayID: 3, PlayTitle: "Bodas de Sangre", Date: "2024-12-02", Time: "20:30", Venue: "Teatro del Barrio", },
+			{ID: 4, PlayID: 5, PlayTitle: "Midsummer Night", Date: "2024-12-10", Time: "20:00", Venue: "Teatro del Barrio"},
+			{ID: 5, PlayID: 2, PlayTitle: "Esperando a Godot", Date: "2024-12-15", Time: "19:00", Venue: "Teatro Principal",},
 		},
 	}
 }

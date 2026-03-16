@@ -95,16 +95,14 @@
 
 <script setup lang="ts">
 
-import { computed } from 'vue'
 import { membersApi, type Member } from '../composables/useAdminApi'
 import { useApiRequest } from '../composables/useApiRequest'
 import ApiState from './ApiState.vue'
 
-const { data: members, loading, error } = useApiRequest(() => membersApi.list(), {
+const { data: team, loading, error } = useApiRequest(() => membersApi.list(), {
   initialData: [] as Member[],
 })
 
-const team = computed(() => (members.value ?? []).filter((m) => m.active === true))
 
 const stats = [
   { value: '2008', label: 'Año de fundación' },
