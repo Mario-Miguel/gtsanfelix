@@ -6,7 +6,8 @@
         <p class="text-red-400 text-sm font-semibold uppercase tracking-widest mb-4">Contacto</p>
         <h1 class="text-4xl font-bold mb-4">Estamos para escucharte</h1>
         <p class="text-gray-400 leading-relaxed">
-          ¿Tienes preguntas sobre nuestras obras, quieres colaborar o necesitas información para prensa? Escríbenos y te responderemos pronto.
+          ¿Tienes preguntas sobre nuestras obras, quieres colaborar o necesitas información para prensa? Escríbenos y te
+          responderemos pronto.
         </p>
       </div>
     </section>
@@ -21,54 +22,37 @@
             <div class="grid sm:grid-cols-2 gap-5">
               <div>
                 <label class="block text-sm font-medium text-gray-300 mb-2">Nombre completo</label>
-                <input
-                  v-model="form.name"
-                  type="text"
-                  placeholder="Tu nombre"
-                  class="w-full bg-[#2d1515] border border-red-900/30 rounded px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:border-red-600 transition-colors"
-                />
+                <input v-model="form.name" type="text" placeholder="Tu nombre"
+                  class="w-full bg-[#2d1515] border border-red-900/30 rounded px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:border-red-600 transition-colors" />
               </div>
               <div>
                 <label class="block text-sm font-medium text-gray-300 mb-2">Correo electrónico</label>
-                <input
-                  v-model="form.email"
-                  type="email"
-                  placeholder="tu@email.com"
-                  class="w-full bg-[#2d1515] border border-red-900/30 rounded px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:border-red-600 transition-colors"
-                />
+                <input v-model="form.email" type="email" placeholder="tu@email.com"
+                  class="w-full bg-[#2d1515] border border-red-900/30 rounded px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:border-red-600 transition-colors" />
               </div>
             </div>
             <div>
               <label class="block text-sm font-medium text-gray-300 mb-2">Asunto</label>
-              <select
-                v-model="form.subject"
-                class="w-full bg-[#2d1515] border border-red-900/30 rounded px-4 py-3 text-white focus:outline-none focus:border-red-600 transition-colors"
-              >
+              <select v-model="form.subject"
+                class="w-full bg-[#2d1515] border border-red-900/30 rounded px-4 py-3 text-white focus:outline-none focus:border-red-600 transition-colors">
                 <option value="" disabled>Selecciona un asunto</option>
                 <option>Información general</option>
                 <option>Prensa y Medios</option>
-                <option>Colaboraciones</option>
-                <option>Soporte de boletos</option>
-                <option>Unirme a la compañía</option>
+                <option>Otros</option>
               </select>
             </div>
             <div>
               <label class="block text-sm font-medium text-gray-300 mb-2">Mensaje</label>
-              <textarea
-                v-model="form.message"
-                rows="5"
-                placeholder="Escribe tu mensaje aquí..."
-                class="w-full bg-[#2d1515] border border-red-900/30 rounded px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:border-red-600 transition-colors resize-none"
-              />
+              <textarea v-model="form.message" rows="5" placeholder="Escribe tu mensaje aquí..."
+                class="w-full bg-[#2d1515] border border-red-900/30 rounded px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:border-red-600 transition-colors resize-none" />
             </div>
-            <div v-if="submitted" class="bg-green-900/30 border border-green-700/40 text-green-400 rounded px-4 py-3 text-sm flex items-center gap-2">
+            <div v-if="submitted"
+              class="bg-green-900/30 border border-green-700/40 text-green-400 rounded px-4 py-3 text-sm flex items-center gap-2">
               <span class="material-symbols-outlined text-sm">check_circle</span>
               Mensaje enviado. Te responderemos en breve.
             </div>
-            <button
-              type="submit"
-              class="bg-red-700 hover:bg-red-600 text-white font-medium px-8 py-3 rounded transition-colors flex items-center gap-2 self-start"
-            >
+            <button type="submit"
+              class="bg-red-700 hover:bg-red-600 text-white font-medium px-8 py-3 rounded transition-colors flex items-center gap-2 self-start">
               <span class="material-symbols-outlined text-sm">send</span>
               Enviar Mensaje
             </button>
@@ -85,7 +69,7 @@
                 <div>
                   <p class="text-xs text-gray-500 mb-0.5 uppercase tracking-wider">Email</p>
                   <a href="mailto:hola@telonabierto.com" class="text-white hover:text-red-400 transition-colors">
-                    hola@telonabierto.com
+                    gtvaldesoto@gmail.com
                   </a>
                 </div>
               </div>
@@ -94,22 +78,8 @@
                 <div>
                   <p class="text-xs text-gray-500 mb-0.5 uppercase tracking-wider">Teléfono</p>
                   <a href="tel:+34900123456" class="text-white hover:text-red-400 transition-colors">
-                    +34 900 123 456
+                    +34 606 58 54 12
                   </a>
-                </div>
-              </div>
-              <div class="flex items-start gap-4">
-                <span class="material-symbols-outlined text-red-500 mt-0.5">location_on</span>
-                <div>
-                  <p class="text-xs text-gray-500 mb-0.5 uppercase tracking-wider">Oficina</p>
-                  <p class="text-white">Calle de la Comedia, 42<br />28004 Madrid, España</p>
-                </div>
-              </div>
-              <div class="flex items-start gap-4">
-                <span class="material-symbols-outlined text-red-500 mt-0.5">schedule</span>
-                <div>
-                  <p class="text-xs text-gray-500 mb-0.5 uppercase tracking-wider">Horario</p>
-                  <p class="text-white text-sm">Lun – Vie: 10:00 – 20:00<br />Sáb: 11:00 – 14:00</p>
                 </div>
               </div>
             </div>
@@ -119,12 +89,8 @@
           <div class="bg-[#2d1515]/60 border border-red-900/20 rounded-lg p-6">
             <h3 class="font-bold mb-4">Síguenos</h3>
             <div class="flex flex-col gap-3">
-              <a
-                v-for="social in socials"
-                :key="social.name"
-                href="#"
-                class="flex items-center gap-3 text-gray-400 hover:text-white transition-colors group"
-              >
+              <a v-for="social in socials" :key="social.name" href="#"
+                class="flex items-center gap-3 text-gray-400 hover:text-white transition-colors group">
                 <span class="material-symbols-outlined text-red-500 group-hover:text-red-400">{{ social.icon }}</span>
                 <div>
                   <p class="text-sm font-medium text-white">{{ social.name }}</p>
@@ -141,7 +107,7 @@
     <section class="h-64 bg-[#1a0a0a] border-t border-red-900/30 flex items-center justify-center">
       <div class="text-center">
         <span class="material-symbols-outlined text-red-700 text-5xl mb-3 block">map</span>
-        <p class="text-gray-600 text-sm">Calle de la Comedia, 42 · 28004 Madrid</p>
+        <p class="text-gray-600 text-sm">Valdesoto · Asturies</p>
       </div>
     </section>
   </div>
@@ -168,8 +134,8 @@ function handleSubmit() {
 }
 
 const socials = [
-  { name: 'Instagram', handle: '@telonabierto', icon: 'photo_camera' },
-  { name: 'Facebook', handle: 'G.T. San Félix de Valdesoto Madrid', icon: 'thumb_up' },
-  { name: 'YouTube', handle: 'G.T. San Félix de Valdesoto', icon: 'play_circle' },
+  { name: 'Instagram', handle: '@gtsanfelixvaldesoto', icon: 'photo_camera' },
+  { name: 'Facebook', handle: 'G.T. San Félix de Valdesoto', icon: 'thumb_up' },
+  { name: 'TikTok', handle: '@teatru.valdesoto', icon: 'music_note' },
 ]
 </script>

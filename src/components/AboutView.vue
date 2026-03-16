@@ -14,7 +14,7 @@
 
     <!-- Stats -->
     <section class="border-y border-red-900/30 bg-[#1a0a0a] py-10">
-      <div class="max-w-5xl mx-auto px-6 grid grid-cols-3 gap-6 text-center">
+      <div class="max-w-5xl mx-auto px-6 grid grid-cols-2 gap-6 text-center">
         <div v-for="stat in stats" :key="stat.label">
           <p class="text-4xl font-bold text-red-500">{{ stat.value }}</p>
           <p class="text-gray-400 text-sm mt-1">{{ stat.label }}</p>
@@ -107,7 +107,6 @@ const { data: team, loading, error } = useApiRequest(() => membersApi.list(), {
 const stats = [
   { value: '2008', label: 'Año de fundación' },
   { value: '24', label: 'Producciones' },
-  { value: '15.000', label: 'Espectadores' },
 ]
 
 const pillars = [
