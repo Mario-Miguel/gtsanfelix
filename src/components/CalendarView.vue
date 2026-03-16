@@ -27,17 +27,7 @@
       </div>
     </section>
 
-    <!-- Loading / Error -->
-    <div v-if="loading" class="flex justify-center py-24">
-      <span class="material-symbols-outlined text-red-600 text-4xl animate-spin">progress_activity</span>
-    </div>
-
-    <div v-else-if="error" class="text-center py-24 text-gray-500">
-      <span class="material-symbols-outlined text-5xl mb-3 block text-red-800">wifi_off</span>
-      <p>No se pudo conectar con el servidor.</p>
-    </div>
-
-    <template v-else>
+    <ApiState :loading="loading" :error="error" py="py-24">
       <div class="max-w-7xl mx-auto px-6 py-12">
 
         <!-- Today's shows -->
@@ -171,29 +161,21 @@
           </div>
         </div>
       </section>
-    </template>
+    </ApiState>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed } from 'vue'
 import { RouterLink } from 'vue-router'
 import { performancesApi, type Performance } from '../composables/useAdminApi'
+import { useApiRequest } from '../composables/useApiRequest'
+import ApiState from './ApiState.vue'
 
-const performances = ref<Performance[]>([])
-const loading = ref(true)
-const error = ref(false)
-const filterVenue = ref('')
-
-onMounted(async () => {
-  try {
-    performances.value = await performancesApi.list()
-  } catch {
-    error.value = true
-  } finally {
-    loading.value = false
-  }
+const { data: performances, loading, error } = useApiRequest(() => performancesApi.list(), {
+  initialData: [] as Performance[],
 })
+const filterVenue = ref('')
 
 // ── Date helpers ──────────────────────────────────────────────────────────
 const MONTHS = ['ENE', 'FEB', 'MAR', 'ABR', 'MAY', 'JUN', 'JUL', 'AGO', 'SEP', 'OCT', 'NOV', 'DIC']
@@ -229,7 +211,7 @@ function isFuture(dateStr: string) {
 
 // ── Derived data ──────────────────────────────────────────────────────────
 const filtered = computed(() => {
-  let list = performances.value
+  let list = performances.value ?? []
   if (filterVenue.value) list = list.filter((p) => p.venue === filterVenue.value)
   return [...list].sort((a, b) => parseDate(a.date).getTime() - parseDate(b.date).getTime())
 })
@@ -237,11 +219,11 @@ const filtered = computed(() => {
 const todayPerfs = computed(() => filtered.value.filter((p) => isToday(p.date)))
 const upcomingPerfs = computed(() => filtered.value.filter((p) => isFuture(p.date)))
 
-const uniqueVenues = computed(() => [...new Set(performances.value.map((p) => p.venue).filter(Boolean))])
+const uniqueVenues = computed(() => [...new Set((performances.value ?? []).map((p) => p.venue).filter(Boolean))])
 
 const venueCounts = computed(() => {
   const counts: Record<string, number> = {}
-  performances.value.forEach((p) => {
+  ;(performances.value ?? []).forEach((p) => {
     counts[p.venue] = (counts[p.venue] ?? 0) + 1
   })
   return counts

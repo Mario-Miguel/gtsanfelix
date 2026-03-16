@@ -44,18 +44,7 @@
     <!-- Content -->
     <section class="max-w-7xl mx-auto px-6 py-12">
 
-      <!-- Loading -->
-      <div v-if="loading" class="flex justify-center py-20">
-        <span class="material-symbols-outlined text-red-600 text-4xl animate-spin">progress_activity</span>
-      </div>
-
-      <!-- Error -->
-      <div v-else-if="error" class="text-center py-20 text-gray-500">
-        <span class="material-symbols-outlined text-5xl mb-3 block text-red-800">wifi_off</span>
-        <p>No se pudo conectar con el servidor.</p>
-      </div>
-
-      <template v-else>
+      <ApiState :loading="loading" :error="error">
         <!-- Grid view -->
         <div v-if="gridView === 'grid'" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           <article
@@ -141,7 +130,7 @@
           <span class="material-symbols-outlined text-5xl mb-3 block">search_off</span>
           <p>No hay obras en esta categoría.</p>
         </div>
-      </template>
+      </ApiState>
     </section>
 
     <!-- CTA -->
@@ -160,33 +149,26 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed } from 'vue'
 import { RouterLink } from 'vue-router'
 import { playsApi, type Play } from '../composables/useAdminApi'
+import { useApiRequest } from '../composables/useApiRequest'
+import ApiState from './ApiState.vue'
 
-const plays = ref<Play[]>([])
-const loading = ref(true)
-const error = ref(false)
+const { data: plays, loading, error } = useApiRequest(() => playsApi.list(), {
+  initialData: [] as Play[],
+})
 const activeCategory = ref('Todos')
 const gridView = ref<'grid' | 'list'>('grid')
 
-onMounted(async () => {
-  try {
-    plays.value = await playsApi.list()
-  } catch {
-    error.value = true
-  } finally {
-    loading.value = false
-  }
-})
-
 const categories = computed(() => {
-  const genres = [...new Set(plays.value.map((p) => p.genre).filter(Boolean))]
+  const genres = [...new Set((plays.value ?? []).map((p) => p.genre).filter(Boolean))]
   return ['Todos', ...genres.sort()]
 })
 
 const filteredPlays = computed(() => {
-  if (activeCategory.value === 'Todos') return plays.value
-  return plays.value.filter((p) => p.genre === activeCategory.value)
+  const list = plays.value ?? []
+  if (activeCategory.value === 'Todos') return list
+  return list.filter((p) => p.genre === activeCategory.value)
 })
 </script>

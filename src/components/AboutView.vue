@@ -73,18 +73,8 @@
         <p class="text-red-400 text-sm font-semibold uppercase tracking-widest mb-3">Las Personas</p>
         <h2 class="text-3xl font-bold">Nuestro Equipo</h2>
       </div>
-      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        <div v-if="loading" class="flex justify-center py-20">
-          <span class="material-symbols-outlined text-red-600 text-4xl animate-spin">progress_activity</span>
-        </div>
-
-        <!-- Error -->
-        <div v-else-if="error" class="text-center py-20 text-gray-500">
-          <span class="material-symbols-outlined text-5xl mb-3 block text-red-800">wifi_off</span>
-          <p>No se pudo conectar con el servidor.</p>
-        </div>
-
-        <template v-else>
+      <ApiState :loading="loading" :error="error">
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
           <div v-for="member in team" :key="member.name"
             class="bg-[#2d1515]/60 border border-red-900/20 rounded-lg overflow-hidden text-center">
             <div class="h-44 bg-[#3d1a1a] flex items-center justify-center">
@@ -95,8 +85,8 @@
               <p class="text-red-400 text-xs uppercase tracking-wide mb-3">{{ member.role }}</p>
             </div>
           </div>
-        </template>
-      </div>
+        </div>
+      </ApiState>
     </section>
 
 
@@ -105,26 +95,16 @@
 
 <script setup lang="ts">
 
-import { computed, onMounted, ref } from 'vue'
+import { computed } from 'vue'
 import { membersApi, type Member } from '../composables/useAdminApi'
+import { useApiRequest } from '../composables/useApiRequest'
+import ApiState from './ApiState.vue'
 
-const members = ref<Member[]>([])
-const loading = ref(true)
-const error = ref(false)
-
-onMounted(async () => {
-  try {
-    members.value = await membersApi.list()
-  } catch {
-    error.value = true
-  } finally {
-    loading.value = false
-  }
+const { data: members, loading, error } = useApiRequest(() => membersApi.list(), {
+  initialData: [] as Member[],
 })
 
-const team = computed(() => {
-  return members.value.filter((m) => m.active === true)
-})
+const team = computed(() => (members.value ?? []).filter((m) => m.active === true))
 
 const stats = [
   { value: '2008', label: 'Año de fundación' },

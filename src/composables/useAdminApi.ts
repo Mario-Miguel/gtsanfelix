@@ -3,6 +3,8 @@
  * All write operations require a valid JWT stored in localStorage.
  */
 
+import { TOKEN_KEY } from './useAdminAuth'
+
 const BASE = 'http://localhost:8080/api'
 
 // ── Types ─────────────────────────────────────────────────────────────────
@@ -44,7 +46,7 @@ export interface LoginResponse {
 // ── Helpers ───────────────────────────────────────────────────────────────
 
 function authHeaders(): Record<string, string> {
-  const token = localStorage.getItem('admin_token')
+  const token = localStorage.getItem(TOKEN_KEY)
   return {
     'Content-Type': 'application/json',
     ...(token ? { Authorization: `Bearer ${token}` } : {}),

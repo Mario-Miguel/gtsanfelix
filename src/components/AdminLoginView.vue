@@ -68,8 +68,10 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { login } from '../composables/useAdminApi'
+import { useAdminAuth } from '../composables/useAdminAuth'
 
 const router = useRouter()
+const { setSession } = useAdminAuth()
 const email = ref('')
 const password = ref('')
 const loading = ref(false)
@@ -80,8 +82,7 @@ async function handleLogin() {
   error.value = ''
   try {
     const res = await login(email.value, password.value)
-    localStorage.setItem('admin_token', res.token)
-    localStorage.setItem('admin_user', JSON.stringify(res.user))
+    setSession(res.token, res.user)
     router.push('/admin')
   } catch (e) {
     error.value = e instanceof Error ? e.message : 'Error de conexión con el servidor'

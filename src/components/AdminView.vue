@@ -422,11 +422,11 @@
                 class="w-full bg-[#2d1515] border border-red-900/20 rounded px-4 py-2.5 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-red-600 transition-colors" />
             </div>
           </div>
-          <p v-if="modalError" class="text-red-400 text-xs">{{ modalError }}</p>
+          <p v-if="playsModalError" class="text-red-400 text-xs">{{ playsModalError }}</p>
           <div class="flex justify-end gap-3 mt-2">
             <button type="button" @click="showPlayModal = false" class="px-5 py-2 text-sm text-gray-400 hover:text-white border border-red-900/30 rounded transition-colors">Cancelar</button>
-            <button type="submit" :disabled="saving" class="px-5 py-2 text-sm bg-red-700 hover:bg-red-600 disabled:opacity-50 rounded font-medium transition-colors">
-              {{ saving ? 'Guardando...' : editingPlay ? 'Guardar' : 'Añadir' }}
+            <button type="submit" :disabled="playsSaving" class="px-5 py-2 text-sm bg-red-700 hover:bg-red-600 disabled:opacity-50 rounded font-medium transition-colors">
+              {{ playsSaving ? 'Guardando...' : editingPlay ? 'Guardar' : 'Añadir' }}
             </button>
           </div>
         </form>
@@ -479,11 +479,11 @@
                 class="w-full bg-[#2d1515] border border-red-900/20 rounded px-4 py-2.5 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-red-600 transition-colors" />
             </div>
           </div>
-          <p v-if="modalError" class="text-red-400 text-xs">{{ modalError }}</p>
+          <p v-if="perfsModalError" class="text-red-400 text-xs">{{ perfsModalError }}</p>
           <div class="flex justify-end gap-3 mt-2">
             <button type="button" @click="showPerfModal = false" class="px-5 py-2 text-sm text-gray-400 hover:text-white border border-red-900/30 rounded transition-colors">Cancelar</button>
-            <button type="submit" :disabled="saving" class="px-5 py-2 text-sm bg-red-700 hover:bg-red-600 disabled:opacity-50 rounded font-medium transition-colors">
-              {{ saving ? 'Guardando...' : editingPerf ? 'Guardar' : 'Añadir' }}
+            <button type="submit" :disabled="perfsSaving" class="px-5 py-2 text-sm bg-red-700 hover:bg-red-600 disabled:opacity-50 rounded font-medium transition-colors">
+              {{ perfsSaving ? 'Guardando...' : editingPerf ? 'Guardar' : 'Añadir' }}
             </button>
           </div>
         </form>
@@ -524,11 +524,11 @@
             <input v-model="memberForm.active" type="checkbox" class="accent-red-600 w-4 h-4" />
             <span class="text-sm text-gray-300">Miembro activo</span>
           </label>
-          <p v-if="modalError" class="text-red-400 text-xs">{{ modalError }}</p>
+          <p v-if="membersModalError" class="text-red-400 text-xs">{{ membersModalError }}</p>
           <div class="flex justify-end gap-3 mt-2">
             <button type="button" @click="showMemberModal = false" class="px-5 py-2 text-sm text-gray-400 hover:text-white border border-red-900/30 rounded transition-colors">Cancelar</button>
-            <button type="submit" :disabled="saving" class="px-5 py-2 text-sm bg-red-700 hover:bg-red-600 disabled:opacity-50 rounded font-medium transition-colors">
-              {{ saving ? 'Guardando...' : editingMember ? 'Guardar' : 'Añadir' }}
+            <button type="submit" :disabled="membersSaving" class="px-5 py-2 text-sm bg-red-700 hover:bg-red-600 disabled:opacity-50 rounded font-medium transition-colors">
+              {{ membersSaving ? 'Guardando...' : editingMember ? 'Guardar' : 'Añadir' }}
             </button>
           </div>
         </form>
@@ -539,34 +539,23 @@
 
 <script setup lang="ts">
 import { ref, reactive, computed, onMounted } from 'vue'
-import { RouterLink, useRouter } from 'vue-router'
+import { RouterLink } from 'vue-router'
 import {
   playsApi, membersApi, performancesApi,
   type Play, type Member, type Performance,
 } from '../composables/useAdminApi'
+import { useCrud } from '../composables/useCrud'
+import { useAdminAuth } from '../composables/useAdminAuth'
 
 type Section = 'dashboard' | 'repertoire' | 'calendar' | 'users' | 'settings'
 
-const router = useRouter()
+const { adminUser, logout } = useAdminAuth()
+
 const activeSection = ref<Section>('dashboard')
 const loading = ref(true)
-const saving = ref(false)
 const apiError = ref('')
-const modalError = ref('')
 const searchQuery = ref('')
 const filterGenre = ref('')
-
-// ── Auth ──────────────────────────────────────────────────────────────────
-const adminUser = computed(() => {
-  const raw = localStorage.getItem('admin_user')
-  return raw ? JSON.parse(raw) : null
-})
-
-function logout() {
-  localStorage.removeItem('admin_token')
-  localStorage.removeItem('admin_user')
-  router.push('/admin/login')
-}
 
 // ── Navigation ────────────────────────────────────────────────────────────
 const navItems: { label: string; icon: string; section: Section }[] = [
@@ -586,10 +575,30 @@ const sectionMeta: Record<Section, { title: string; subtitle: string }> = {
 }
 const currentMeta = computed(() => sectionMeta[activeSection.value])
 
-// ── Data ──────────────────────────────────────────────────────────────────
-const plays = ref<Play[]>([])
-const members = ref<Member[]>([])
-const performances = ref<Performance[]>([])
+// ── Data (CRUD) ────────────────────────────────────────────────────────────
+const {
+  items: plays,
+  saving: playsSaving,
+  modalError: playsModalError,
+  save: saveCrudPlay,
+  remove: removeCrudPlay,
+} = useCrud<Play>(playsApi, { prepend: true })
+
+const {
+  items: performances,
+  saving: perfsSaving,
+  modalError: perfsModalError,
+  save: saveCrudPerf,
+  remove: removeCrudPerf,
+} = useCrud<Performance>(performancesApi)
+
+const {
+  items: members,
+  saving: membersSaving,
+  modalError: membersModalError,
+  save: saveCrudMember,
+  remove: removeCrudMember,
+} = useCrud<Member>(membersApi)
 
 const genres = ['Drama', 'Tragedia', 'Teatro del Absurdo', 'Clásico', 'Contemporáneo', 'Comedia']
 
@@ -654,35 +663,19 @@ const playForm = reactive({ title: '', author: '', genre: 'Drama', duration: '' 
 function openPlayModal(play?: Play) {
   editingPlay.value = play ?? null
   Object.assign(playForm, play ? { title: play.title, author: play.author, genre: play.genre, duration: play.duration } : { title: '', author: '', genre: 'Drama', duration: '' })
-  modalError.value = ''
+  playsModalError.value = ''
   showPlayModal.value = true
 }
 
 async function savePlay() {
-  saving.value = true
-  modalError.value = ''
-  try {
-    if (editingPlay.value) {
-      const updated = await playsApi.update(editingPlay.value.id, playForm)
-      const idx = plays.value.findIndex((p) => p.id === editingPlay.value!.id)
-      if (idx !== -1) plays.value[idx] = updated
-    } else {
-      const created = await playsApi.create(playForm)
-      plays.value.unshift(created)
-    }
-    showPlayModal.value = false
-  } catch (e) {
-    modalError.value = e instanceof Error ? e.message : 'Error al guardar'
-  } finally {
-    saving.value = false
-  }
+  const ok = await saveCrudPlay(playForm, editingPlay.value?.id)
+  if (ok) showPlayModal.value = false
 }
 
 async function removePlay(id: number) {
   if (!confirm('¿Eliminar esta obra?')) return
   try {
-    await playsApi.delete(id)
-    plays.value = plays.value.filter((p) => p.id !== id)
+    await removeCrudPlay(id)
   } catch (e) {
     apiError.value = e instanceof Error ? e.message : 'Error al eliminar'
   }
@@ -696,35 +689,19 @@ const perfForm = reactive({ playId: 0, playTitle: '', date: '', time: '', venue:
 function openPerfModal(perf?: Performance) {
   editingPerf.value = perf ?? null
   Object.assign(perfForm, perf ?? { playId: 0, playTitle: '', date: '', time: '', venue: '', sold: 0, price: '' })
-  modalError.value = ''
+  perfsModalError.value = ''
   showPerfModal.value = true
 }
 
 async function savePerformance() {
-  saving.value = true
-  modalError.value = ''
-  try {
-    if (editingPerf.value) {
-      const updated = await performancesApi.update(editingPerf.value.id, perfForm)
-      const idx = performances.value.findIndex((p) => p.id === editingPerf.value!.id)
-      if (idx !== -1) performances.value[idx] = updated
-    } else {
-      const created = await performancesApi.create(perfForm)
-      performances.value.push(created)
-    }
-    showPerfModal.value = false
-  } catch (e) {
-    modalError.value = e instanceof Error ? e.message : 'Error al guardar'
-  } finally {
-    saving.value = false
-  }
+  const ok = await saveCrudPerf(perfForm, editingPerf.value?.id)
+  if (ok) showPerfModal.value = false
 }
 
 async function removePerformance(id: number) {
   if (!confirm('¿Eliminar esta función?')) return
   try {
-    await performancesApi.delete(id)
-    performances.value = performances.value.filter((p) => p.id !== id)
+    await removeCrudPerf(id)
   } catch (e) {
     apiError.value = e instanceof Error ? e.message : 'Error al eliminar'
   }
@@ -738,35 +715,19 @@ const memberForm = reactive({ name: '', role: '', email: '', active: true, quote
 function openMemberModal(member?: Member) {
   editingMember.value = member ?? null
   Object.assign(memberForm, member ?? { name: '', role: '', email: '', active: true, quote: '' })
-  modalError.value = ''
+  membersModalError.value = ''
   showMemberModal.value = true
 }
 
 async function saveMember() {
-  saving.value = true
-  modalError.value = ''
-  try {
-    if (editingMember.value) {
-      const updated = await membersApi.update(editingMember.value.id, memberForm)
-      const idx = members.value.findIndex((m) => m.id === editingMember.value!.id)
-      if (idx !== -1) members.value[idx] = updated
-    } else {
-      const created = await membersApi.create(memberForm)
-      members.value.push(created)
-    }
-    showMemberModal.value = false
-  } catch (e) {
-    modalError.value = e instanceof Error ? e.message : 'Error al guardar'
-  } finally {
-    saving.value = false
-  }
+  const ok = await saveCrudMember(memberForm, editingMember.value?.id)
+  if (ok) showMemberModal.value = false
 }
 
 async function removeMember(id: number) {
   if (!confirm('¿Eliminar este miembro?')) return
   try {
-    await membersApi.delete(id)
-    members.value = members.value.filter((m) => m.id !== id)
+    await removeCrudMember(id)
   } catch (e) {
     apiError.value = e instanceof Error ? e.message : 'Error al eliminar'
   }
