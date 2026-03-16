@@ -31,13 +31,15 @@
     <section class="bg-[#C2B280]/10 border-y border-[#C2B280]/20 py-10">
       <div class="max-w-5xl mx-auto px-6 grid grid-cols-2 gap-6 text-center">
         <div>
-          <p class="text-4xl font-bold text-[#C2B280]">16+</p>
+          <p class="text-4xl font-bold text-[#C2B280]">{{ activeYears }}+</p>
           <p class="text-slate-600 text-sm mt-1">Años en escena</p>
         </div>
-        <div>
-          <p class="text-4xl font-bold text-[#C2B280]">24</p>
-          <p class="text-slate-600 text-sm mt-1">Producciones</p>
-        </div>
+        <ApiState :loading="playsLoading" :error="playsError">
+          <div>
+            <p class="text-4xl font-bold text-[#C2B280]">{{ plays?.length }}</p>
+            <p class="text-slate-600 text-sm mt-1">Obras</p>
+          </div>
+        </ApiState>
       </div>
     </section>
 
@@ -65,27 +67,32 @@
             Ver todas <span class="material-symbols-outlined text-sm">chevron_right</span>
           </RouterLink>
         </div>
-        <div class="grid md:grid-cols-3 gap-6">
-          <div v-for="show in upcomingShows" :key="show.title"
-            class="bg-white border border-[#C2B280]/10 rounded-lg p-6 hover:border-[#C2B280]/40 transition-colors">
-            <div class="flex items-center gap-3 mb-4">
-              <div class="bg-[#C2B280]/20 text-[#C2B280] rounded px-3 py-2 text-center min-w-[52px]">
-                <p class="text-xs font-medium">{{ show.month }}</p>
-                <p class="text-2xl font-bold leading-none">{{ show.day }}</p>
-              </div>
-              <div>
-                <p class="text-xs text-slate-500">{{ show.weekday }}</p>
-                <p class="text-sm font-medium">{{ show.time }}</p>
-              </div>
-            </div>
-            <h4 class="font-semibold mb-1">{{ show.title }}</h4>
-            <p class="text-slate-500 text-sm mb-1 italic">{{ show.author }}</p>
-            <p class="text-slate-600 text-xs flex items-center gap-1 mt-2">
-              <span class="material-symbols-outlined text-xs">location_on</span>
-              {{ show.venue }}
-            </p>
+        <ApiState :loading="performancesLoading" :error="performancesError">
+          <div v-if="upcomingShows?.length === 0" class="text-center py-12 text-slate-600">
+            <span class="material-symbols-outlined text-5xl mb-3 block">theater_comedy</span>
+            <p>No hay funciones a la vista.</p>
           </div>
-        </div>
+          <div v-else class="grid md:grid-cols-3 gap-6">
+            <div v-for="show in upcomingShows" :key="show.playId"
+              class="bg-white border border-[#C2B280]/10 rounded-lg p-6 hover:border-[#C2B280]/40 transition-colors">
+              <div class="flex items-center gap-3 mb-4">
+                <div class="bg-[#C2B280]/20 text-[#C2B280] rounded px-3 py-2 text-center min-w-[52px]">
+                  <p class="text-xs font-medium">{{ monthLabel(show.date) }}</p>
+                  <p class="text-2xl font-bold leading-none">{{ dayLabel(show.date) }}</p>
+                </div>
+                <div>
+                  <p class="text-xs text-slate-500">{{ weekdayLabel(show.date) }}</p>
+                  <p class="text-sm font-medium">{{ show.time }}</p>
+                </div>
+              </div>
+              <h4 class="font-semibold mb-1">{{ show.playTitle }}</h4>
+              <p class="text-slate-600 text-xs flex items-center gap-1 mt-2">
+                <span class="material-symbols-outlined text-xs">location_on</span>
+                {{ show.venue }}
+              </p>
+            </div>
+          </div>
+        </ApiState>
       </div>
     </section>
 
@@ -106,8 +113,7 @@
           </RouterLink>
         </div>
         <div class="grid grid-cols-2 gap-4">
-          <div v-for="pillar in pillars" :key="pillar.title"
-            class="bg-white border border-[#C2B280]/10 rounded-lg p-5">
+          <div v-for="pillar in pillars" :key="pillar.title" class="bg-white border border-[#C2B280]/10 rounded-lg p-5">
             <span class="material-symbols-outlined text-[#C2B280] mb-3 block">{{ pillar.icon }}</span>
             <h4 class="font-semibold text-sm mb-1">{{ pillar.title }}</h4>
             <p class="text-slate-500 text-xs">{{ pillar.desc }}</p>
@@ -173,44 +179,37 @@
 
 <script setup lang="ts">
 import { RouterLink } from 'vue-router'
-import { playsApi, type Play } from '../composables/useAdminApi'
+import { playsApi, type Play, performancesApi, type Performance } from '../composables/useAdminApi'
 import { useApiRequest } from '../composables/useApiRequest'
 import ApiState from './ApiState.vue'
 import PlaysCarousel from './PlaysCarousel.vue'
+import { computed } from 'vue'
+
+
+const MONTHS = ['ENE', 'FEB', 'MAR', 'ABR', 'MAY', 'JUN', 'JUL', 'AGO', 'SEP', 'OCT', 'NOV', 'DIC']
+function monthLabel(dateStr: string) {
+  const d = new Date(dateStr)
+  return MONTHS[d.getMonth()] ?? ''
+}
+function dayLabel(dateStr: string) {
+  return new Date(dateStr).getDate()
+}
+function weekdayLabel(dateStr: string) {
+  return new Date(dateStr).toLocaleDateString('es-ES', { weekday: 'long' })
+}
+
+const activeYears = new Date().getFullYear() - new Date('2000-01-01').getFullYear()
 
 const { data: plays, loading: playsLoading, error: playsError } = useApiRequest(() => playsApi.list(), {
   initialData: [] as Play[],
 })
 
-const upcomingShows = [
-  {
-    month: 'OCT',
-    day: '15',
-    weekday: 'Domingo',
-    time: '19:00 hrs',
-    title: 'Esperando a Godot',
-    author: 'Samuel Beckett',
-    venue: 'Teatro Principal',
-  },
-  {
-    month: 'NOV',
-    day: '2',
-    weekday: 'Sábado',
-    time: '20:30 hrs',
-    title: 'Bodas de Sangre',
-    author: 'Federico García Lorca',
-    venue: 'Teatro La Latina',
-  },
-  {
-    month: 'DIC',
-    day: '10',
-    weekday: 'Miércoles',
-    time: '20:00 hrs',
-    title: 'Midsummer Night',
-    author: 'William Shakespeare',
-    venue: 'Teatro del Barrio',
-  },
-]
+const { data: performances, loading: performancesLoading, error: performancesError } = useApiRequest(() => performancesApi.list(), {
+  initialData: [] as Performance[],
+})
+
+const upcomingShows = computed(() => performances.value?.filter((p) => new Date(p.date) > new Date()).slice(0, 3))
+
 
 const pillars = [
   { icon: 'favorite', title: 'Puro Amateurismo', desc: 'Arte creado desde la pasión, no la comercialidad.' },

@@ -68,3 +68,7 @@ middleware/      — CORS (allows localhost:5173) + RequireAuth JWT guard
 Write endpoints (`POST`, `PUT`, `DELETE`) require `Authorization: Bearer <token>`. GET endpoints are public.
 
 **Tests:** Unit tests with Vitest + `@vue/test-utils` in `src/__tests__/`. E2e with Cypress in `cypress/e2e/`.
+
+## Known pitfalls
+
+**v-calendar `DatePicker`:** No usar `@dayclick` para llamar a `target.blur()` — interrumpe el procesamiento interno y provoca `TypeError: Cannot read properties of undefined (reading 'dayIndex')`. Usar siempre `:masks="{ modelValue: 'YYYY-MM-DD' }"` junto con `v-model.string`; sin esta máscara el valor se guarda en ISO (`2024-01-15T00:00:00.000Z`) y las funciones de formateo que hacen `dateStr + 'T00:00:00'` producen fechas inválidas. Usar slot `#default` con `inputValue` + `inputEvents` para input personalizado.

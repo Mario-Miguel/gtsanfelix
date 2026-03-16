@@ -25,8 +25,10 @@
     "@nuxt/ui": "^4.3.0",
     "@tiptap/core": "^3.14.0",
     "@tiptap/pm": "^3.14.0",
+    "date-fns": "^4.1.0",
     "pinia": "^3.0.4",
     "tailwindcss": "^4.1.18",
+    "v-calendar": "^3.1.2",
     "vue": "^3.5.26",
     "vue-router": "^4.6.4"
   },
