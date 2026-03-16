@@ -9,13 +9,13 @@ import (
 	"gtsanfelix/backend/store"
 )
 
-func GetPlays(s *store.Store) http.HandlerFunc {
+func GetPlays(s store.DB) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		jsonOK(w, s.GetPlays(), http.StatusOK)
 	}
 }
 
-func GetPlay(s *store.Store) http.HandlerFunc {
+func GetPlay(s store.DB) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		id, err := strconv.Atoi(r.PathValue("id"))
 		if err != nil {
@@ -31,7 +31,7 @@ func GetPlay(s *store.Store) http.HandlerFunc {
 	}
 }
 
-func CreatePlay(s *store.Store) http.HandlerFunc {
+func CreatePlay(s store.DB) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		var play models.Play
 		if err := json.NewDecoder(r.Body).Decode(&play); err != nil {
@@ -46,7 +46,7 @@ func CreatePlay(s *store.Store) http.HandlerFunc {
 	}
 }
 
-func UpdatePlay(s *store.Store) http.HandlerFunc {
+func UpdatePlay(s store.DB) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		id, err := strconv.Atoi(r.PathValue("id"))
 		if err != nil {
@@ -67,7 +67,7 @@ func UpdatePlay(s *store.Store) http.HandlerFunc {
 	}
 }
 
-func DeletePlay(s *store.Store) http.HandlerFunc {
+func DeletePlay(s store.DB) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		id, err := strconv.Atoi(r.PathValue("id"))
 		if err != nil {

@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gtsanfelix-backend
+  namespace: gtsanfelix
+  labels:
+    app: gtsanfelix-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gtsanfelix-backend
+  template:
+    metadata:
+      labels:
+        app: gtsanfelix-backend
+    spec:
+      containers:
+        - name: backend
+          image: gtsanfelix-backend:latest  # replace with your registry/image:tag
+          ports:
+            - containerPort: 8080
+          env:
+            # Points to the mounted Secret file — triggers production credentials path.
+            - name: GOOGLE_APPLICATION_CREDENTIALS
+              value: /etc/secrets/gcp/serviceAccount.json
+            # Optional: override project ID. If omitted, it is read from the file.
+            # - name: FIREBASE_PROJECT_ID
+            #   value: gtsanfelix
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: gtsanfelix-app
+                  key: jwt_secret
+          volumeMounts:
+            - name: firebase-sa
+              mountPath: /etc/secrets/gcp
+              readOnly: true
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "64Mi"
+            limits:
+              cpu: "500m"
+              memory: "128Mi"
+          readinessProbe:
+            httpGet:
+              path: /api/plays
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 10
+      volumes:
+        - name: firebase-sa
+          secret:
+            secretName: firebase-sa

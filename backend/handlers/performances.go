@@ -9,13 +9,13 @@ import (
 	"gtsanfelix/backend/store"
 )
 
-func GetPerformances(s *store.Store) http.HandlerFunc {
+func GetPerformances(s store.DB) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		jsonOK(w, s.GetPerformances(), http.StatusOK)
 	}
 }
 
-func GetPerformance(s *store.Store) http.HandlerFunc {
+func GetPerformance(s store.DB) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		id, err := strconv.Atoi(r.PathValue("id"))
 		if err != nil {
@@ -31,7 +31,7 @@ func GetPerformance(s *store.Store) http.HandlerFunc {
 	}
 }
 
-func CreatePerformance(s *store.Store) http.HandlerFunc {
+func CreatePerformance(s store.DB) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		var p models.Performance
 		if err := json.NewDecoder(r.Body).Decode(&p); err != nil {
@@ -46,7 +46,7 @@ func CreatePerformance(s *store.Store) http.HandlerFunc {
 	}
 }
 
-func UpdatePerformance(s *store.Store) http.HandlerFunc {
+func UpdatePerformance(s store.DB) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		id, err := strconv.Atoi(r.PathValue("id"))
 		if err != nil {
@@ -67,7 +67,7 @@ func UpdatePerformance(s *store.Store) http.HandlerFunc {
 	}
 }
 
-func DeletePerformance(s *store.Store) http.HandlerFunc {
+func DeletePerformance(s store.DB) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		id, err := strconv.Atoi(r.PathValue("id"))
 		if err != nil {

@@ -9,13 +9,13 @@ import (
 	"gtsanfelix/backend/store"
 )
 
-func GetMembers(s *store.Store) http.HandlerFunc {
+func GetMembers(s store.DB) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		jsonOK(w, s.GetMembers(), http.StatusOK)
 	}
 }
 
-func GetMember(s *store.Store) http.HandlerFunc {
+func GetMember(s store.DB) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		id, err := strconv.Atoi(r.PathValue("id"))
 		if err != nil {
@@ -31,7 +31,7 @@ func GetMember(s *store.Store) http.HandlerFunc {
 	}
 }
 
-func CreateMember(s *store.Store) http.HandlerFunc {
+func CreateMember(s store.DB) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		var m models.Member
 		if err := json.NewDecoder(r.Body).Decode(&m); err != nil {
@@ -46,7 +46,7 @@ func CreateMember(s *store.Store) http.HandlerFunc {
 	}
 }
 
-func UpdateMember(s *store.Store) http.HandlerFunc {
+func UpdateMember(s store.DB) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		id, err := strconv.Atoi(r.PathValue("id"))
 		if err != nil {
@@ -67,7 +67,7 @@ func UpdateMember(s *store.Store) http.HandlerFunc {
 	}
 }
 
-func DeleteMember(s *store.Store) http.HandlerFunc {
+func DeleteMember(s store.DB) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		id, err := strconv.Atoi(r.PathValue("id"))
 		if err != nil {

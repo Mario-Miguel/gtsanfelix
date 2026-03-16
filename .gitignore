@@ -38,3 +38,6 @@ __screenshots__/
 
 auto-imports.d.ts
 components.d.ts
+
+serviceAccount.json
+*/tmp/*

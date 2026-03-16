@@ -12,7 +12,7 @@ import (
 )
 
 // Login handles POST /api/auth/login.
-func Login(s *store.Store) http.HandlerFunc {
+func Login(s store.DB) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		var req models.LoginRequest
 		if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
