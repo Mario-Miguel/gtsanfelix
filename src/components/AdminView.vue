@@ -82,7 +82,6 @@
 
       <!-- Scrollable content -->
       <main v-else class="flex-1 overflow-y-auto p-8">
-
         <!-- ── DASHBOARD ── -->
         <template v-if="activeSection === 'dashboard'">
           <div class="grid grid-cols-2 xl:grid-cols-4 gap-5 mb-8">
@@ -139,7 +138,7 @@
             <!-- Upcoming performances -->
             <div class="xl:col-span-2 bg-white border border-[#C2B280]/20 rounded-lg overflow-hidden">
               <div class="flex items-center justify-between px-6 py-4 border-b border-[#C2B280]/20">
-                <h2 class="font-semibold text-sm">Próximas Funciones</h2>
+                <h2 class="font-semibold text-sm">Próximes Funciones</h2>
                 <button @click="activeSection = 'calendar'"
                   class="text-[#aa9668] hover:text-[#C2B280] text-xs transition-colors">
                   Ver todo →
@@ -153,11 +152,15 @@
                       <div
                         class="bg-[#C2B280]/20 text-[#8e7a52] rounded px-2 py-1 text-center min-w-[44px] flex-shrink-0">
                         <p class="text-xs leading-none">{{ monthLabel(perf.date) }}</p>
-                        <p class="text-lg font-bold leading-none mt-0.5">{{ dayLabel(perf.date) }}</p>
+                        <p class="text-lg font-bold leading-none mt-0.5">
+                          {{ dayLabel(perf.date) }}
+                        </p>
                       </div>
                       <div class="flex-1 min-w-0">
                         <p class="font-medium text-sm truncate">{{ perf.playTitle }}</p>
-                        <p class="text-xs text-slate-500 mt-0.5">{{ perf.time }} · {{ perf.venue }}</p>
+                        <p class="text-xs text-slate-500 mt-0.5">
+                          {{ perf.time }} · {{ perf.venue }}
+                        </p>
                       </div>
                     </div>
                   </div>
@@ -202,8 +205,9 @@
                   <td class="px-6 py-3 font-medium">{{ play.title }}</td>
                   <td class="px-6 py-3 text-slate-500">{{ play.author }}</td>
                   <td class="px-6 py-3">
-                    <span class="bg-[#C2B280]/20 text-[#8e7a52] text-xs px-2 py-0.5 rounded-full">{{ play.genre
-                      }}</span>
+                    <span class="bg-[#C2B280]/20 text-[#8e7a52] text-xs px-2 py-0.5 rounded-full">
+                      {{ play.genre }}
+                    </span>
                   </td>
                   <td class="px-6 py-3 text-slate-500">{{ play.duration }}</td>
                   <td class="px-6 py-3 text-right">
@@ -220,7 +224,9 @@
                   </td>
                 </tr>
                 <tr v-if="filteredPlays.length === 0">
-                  <td colspan="5" class="px-6 py-10 text-center text-slate-400">No se encontraron obras.</td>
+                  <td colspan="5" class="px-6 py-10 text-center text-slate-400">
+                    No se encontraron obras.
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -262,7 +268,9 @@
                   </td>
                 </tr>
                 <tr v-if="performances?.length === 0">
-                  <td colspan="6" class="px-6 py-10 text-center text-slate-400">No hay funciones programadas.</td>
+                  <td colspan="6" class="px-6 py-10 text-center text-slate-400">
+                    No hay funciones programadas.
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -306,13 +314,14 @@
                   </td>
                 </tr>
                 <tr v-if="members.length === 0">
-                  <td colspan="5" class="px-6 py-10 text-center text-slate-400">No hay miembros registrados.</td>
+                  <td colspan="5" class="px-6 py-10 text-center text-slate-400">
+                    No hay miembros registrados.
+                  </td>
                 </tr>
               </tbody>
             </table>
           </div>
         </template>
-
       </main>
     </div>
   </div>
@@ -343,8 +352,8 @@
             <div>
               <label class="block text-xs text-slate-500 mb-1.5 uppercase tracking-wider">Activa</label>
               <div class="flex items-center h-[42px]">
-                <button type="button" @click="playForm.active = !playForm.active"
-                  :class="playForm.active ? 'bg-[#C2B280]' : 'bg-[#f8f6f6] border border-[#C2B280]/20'"
+                <button type="button" @click="playForm.active = !playForm.active" :class="playForm.active ? 'bg-[#C2B280]' : 'bg-[#f8f6f6] border border-[#C2B280]/20'
+                  "
                   class="relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none">
                   <span :class="playForm.active ? 'translate-x-6' : 'translate-x-1'"
                     class="inline-block h-4 w-4 transform rounded-full bg-white transition-transform" />
@@ -366,7 +375,9 @@
           <p v-if="playsModalError" class="text-red-500 text-xs">{{ playsModalError }}</p>
           <div class="flex justify-end gap-3 mt-2">
             <button type="button" @click="showPlayModal = false"
-              class="px-5 py-2 text-sm text-slate-500 hover:text-slate-900 border border-[#C2B280]/30 rounded transition-colors">Cancelar</button>
+              class="px-5 py-2 text-sm text-slate-500 hover:text-slate-900 border border-[#C2B280]/30 rounded transition-colors">
+              Cancelar
+            </button>
             <button type="submit" :disabled="playsSaving"
               class="px-5 py-2 text-sm bg-[#C2B280] hover:bg-[#aa9668] text-slate-900 disabled:opacity-50 rounded font-medium transition-colors">
               {{ playsSaving ? 'Guardando...' : editingPlay ? 'Guardar' : 'Añadir' }}
@@ -394,7 +405,9 @@
             <select v-model="perfForm.playTitle" required
               class="w-full bg-[#f8f6f6] border border-[#C2B280]/20 rounded px-4 py-2.5 text-sm text-slate-900 focus:outline-none focus:border-[#C2B280] transition-colors">
               <option value="" disabled>Seleccionar obra...</option>
-              <option v-for="play in activePlays" :key="play.id" :value="play.title">{{ play.title }}</option>
+              <option v-for="play in activePlays" :key="play.id" :value="play.title">
+                {{ play.title }}
+              </option>
             </select>
           </div>
           <div class="grid grid-cols-2 gap-4">
@@ -421,7 +434,9 @@
           <p v-if="perfsModalError" class="text-red-500 text-xs">{{ perfsModalError }}</p>
           <div class="flex justify-end gap-3 mt-2">
             <button type="button" @click="showPerfModal = false"
-              class="px-5 py-2 text-sm text-slate-500 hover:text-slate-900 border border-[#C2B280]/30 rounded transition-colors">Cancelar</button>
+              class="px-5 py-2 text-sm text-slate-500 hover:text-slate-900 border border-[#C2B280]/30 rounded transition-colors">
+              Cancelar
+            </button>
             <button type="submit" :disabled="perfsSaving"
               class="px-5 py-2 text-sm bg-[#C2B280] hover:bg-[#aa9668] text-slate-900 disabled:opacity-50 rounded font-medium transition-colors">
               {{ perfsSaving ? 'Guardando...' : editingPerf ? 'Guardar' : 'Añadir' }}
@@ -438,7 +453,9 @@
       @click.self="showMemberModal = false">
       <div class="bg-white border border-[#C2B280]/30 rounded-lg w-full max-w-lg mx-4 p-6">
         <div class="flex items-center justify-between mb-6">
-          <h2 class="font-bold text-lg">{{ editingMember ? 'Editar Miembro' : 'Nuevo Miembro' }}</h2>
+          <h2 class="font-bold text-lg">
+            {{ editingMember ? 'Editar Miembro' : 'Nuevo Miembro' }}
+          </h2>
           <button @click="showMemberModal = false" class="text-slate-400 hover:text-slate-900 transition-colors">
             <span class="material-symbols-outlined">close</span>
           </button>
@@ -469,7 +486,9 @@
           <p v-if="membersModalError" class="text-red-500 text-xs">{{ membersModalError }}</p>
           <div class="flex justify-end gap-3 mt-2">
             <button type="button" @click="showMemberModal = false"
-              class="px-5 py-2 text-sm text-slate-500 hover:text-slate-900 border border-[#C2B280]/30 rounded transition-colors">Cancelar</button>
+              class="px-5 py-2 text-sm text-slate-500 hover:text-slate-900 border border-[#C2B280]/30 rounded transition-colors">
+              Cancelar
+            </button>
             <button type="submit" :disabled="membersSaving"
               class="px-5 py-2 text-sm bg-[#C2B280] hover:bg-[#aa9668] text-slate-900 disabled:opacity-50 rounded font-medium transition-colors">
               {{ membersSaving ? 'Guardando...' : editingMember ? 'Guardar' : 'Añadir' }}
@@ -487,9 +506,11 @@ import 'v-calendar/dist/style.css'
 import { computed, onMounted, reactive, ref } from 'vue'
 import { RouterLink } from 'vue-router'
 import {
-  membersApi, performancesApi,
+  membersApi,
+  performancesApi,
   playsApi,
-  type Member, type Performance,
+  type Member,
+  type Performance,
   type Play,
 } from '../composables/useAdminApi'
 import { useAdminAuth } from '../composables/useAdminAuth'
@@ -569,12 +590,17 @@ async function loadData() {
   loading.value = true
   apiError.value = ''
   try {
-    const [p, m, perf] = await Promise.all([playsApi.list(), membersApi.list(), performancesApi.list()])
+    const [p, m, perf] = await Promise.all([
+      playsApi.list(),
+      membersApi.list(),
+      performancesApi.list(),
+    ])
     plays.value = p
     members.value = m
     performances.value = perf
   } catch {
-    apiError.value = 'No se pudo conectar con el servidor. Asegúrate de que el backend está corriendo en :8080'
+    apiError.value =
+      'No se pudo conectar con el servidor. Asegúrate de que el backend está corriendo en :8080'
   } finally {
     loading.value = false
   }
@@ -592,17 +618,40 @@ function dayLabel(dateStr: string) {
   return new Date(dateStr).getDate()
 }
 function formatDate(dateStr: string) {
-  return new Date(dateStr).toLocaleDateString('es-ES', { day: 'numeric', month: 'short', year: 'numeric' })
+  return new Date(dateStr).toLocaleDateString('es-ES', {
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric',
+  })
 }
 
 // ── Plays CRUD ─────────────────────────────────────────────────────────────
 const showPlayModal = ref(false)
 const editingPlay = ref<Play | null>(null)
-const playForm = reactive({ title: '', author: '', genre: 'Comedia', duration: '', active: false, summary: '' })
+const playForm = reactive({
+  title: '',
+  author: '',
+  genre: 'Comedia',
+  duration: '',
+  active: false,
+  summary: '',
+})
 
 function openPlayModal(play?: Play) {
   editingPlay.value = play ?? null
-  Object.assign(playForm, play ? { title: play.title, author: play.author, genre: play.genre, duration: play.duration, active: play.active, summary: play.summary } : { title: '', author: '', genre: 'Comedia', duration: '', active: false, summary: '' })
+  Object.assign(
+    playForm,
+    play
+      ? {
+        title: play.title,
+        author: play.author,
+        genre: play.genre,
+        duration: play.duration,
+        active: play.active,
+        summary: play.summary,
+      }
+      : { title: '', author: '', genre: 'Comedia', duration: '', active: false, summary: '' },
+  )
   playsModalError.value = ''
   showPlayModal.value = true
 }

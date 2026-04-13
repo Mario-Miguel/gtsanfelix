@@ -1,7 +1,7 @@
 <template>
   <div v-if="visiblePlays.length === 0" class="text-center py-12 text-slate-600">
     <span class="material-symbols-outlined text-5xl mb-3 block">theater_comedy</span>
-    <p>No hay producciones en este momento.</p>
+    <p>No hay Obres de Teatru en este momento.</p>
   </div>
 
   <div v-else class="relative">

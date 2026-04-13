@@ -6,22 +6,8 @@
         <p class="text-[#C2B280] text-sm font-semibold uppercase tracking-widest mb-3">Programación</p>
         <h1 class="text-4xl font-bold mb-3">Cartelera de Funciones</h1>
         <p class="text-slate-600 max-w-xl">
-          Toda la programación de G.T. San Félix de Valdesoto. Consulta fechas, sedes y reserva tu entrada.
+          Tola programación del grupu. Consulta feches, ónde actuamos y acutalo en el to calendariu!
         </p>
-      </div>
-    </section>
-
-    <!-- Filters bar -->
-    <section class="bg-[#C2B280]/10 border-b border-[#C2B280]/10 sticky top-[73px] z-40">
-      <div class="max-w-7xl mx-auto px-6 py-3 flex items-center gap-4 flex-wrap">
-        <div class="flex items-center gap-2 ml-auto text-sm">
-          <span class="material-symbols-outlined text-[#C2B280] text-sm">filter_list</span>
-          <select v-model="filterVenue"
-            class="bg-white border border-[#C2B280]/20 rounded px-3 py-2 text-sm text-slate-700 focus:outline-none focus:border-[#C2B280]">
-            <option value="">Todas las sedes</option>
-            <option v-for="v in uniqueVenues" :key="v">{{ v }}</option>
-          </select>
-        </div>
       </div>
     </section>
 
@@ -32,13 +18,13 @@
         <div v-if="todayPerfs.length > 0" class="mb-14">
           <h2 class="text-xl font-bold mb-6 flex items-center gap-2">
             <span class="material-symbols-outlined text-[#C2B280]">today</span>
-            Hoy — {{ todayLabel }}
+            Güei — {{ todayLabel }}
           </h2>
           <div class="grid md:grid-cols-2 gap-6">
             <article v-for="perf in todayPerfs" :key="perf.id"
               class="bg-white border border-[#C2B280]/10 rounded-lg p-6 hover:border-[#C2B280]/40 transition-colors">
               <div class="flex items-center justify-between mb-4">
-                <span class="bg-[#C2B280]/20 text-[#8e7a52] text-xs px-3 py-1 rounded-full">HOY</span>
+                <span class="bg-[#C2B280]/20 text-[#8e7a52] text-xs px-3 py-1 rounded-full">GÜEI</span>
               </div>
               <h3 class="font-bold text-xl mb-3">{{ perf.playTitle }}</h3>
               <div class="flex flex-wrap gap-4 text-sm text-slate-600 mb-5">
@@ -59,7 +45,7 @@
         <div>
           <h2 class="text-xl font-bold mb-6 flex items-center gap-2">
             <span class="material-symbols-outlined text-[#C2B280]">event_upcoming</span>
-            {{ todayPerfs.length > 0 ? 'Próximos Días' : 'Todas las Funciones' }}
+            {{ todayPerfs.length > 0 ? 'Próximos Díes' : 'Toes les Funciones' }}
           </h2>
 
           <div v-if="upcomingPerfs.length > 0" class="flex flex-col gap-4">
@@ -87,7 +73,7 @@
 
           <div v-else class="text-center py-16 text-slate-600">
             <span class="material-symbols-outlined text-5xl mb-3 block">event_busy</span>
-            <p>No hay funciones programadas próximamente.</p>
+            <p>Nun hay funciones programaes próximamente.</p>
           </div>
         </div>
       </div>
@@ -97,7 +83,7 @@
         <div class="max-w-7xl mx-auto px-6">
           <h2 class="text-xl font-bold mb-6 flex items-center gap-2">
             <span class="material-symbols-outlined text-[#C2B280]">theater_comedy</span>
-            Sedes
+            Ónde actuamos
           </h2>
           <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
             <div v-for="venue in uniqueVenues" :key="venue"
@@ -105,8 +91,9 @@
               <span class="material-symbols-outlined text-[#C2B280] text-3xl">theater_comedy</span>
               <div>
                 <h4 class="font-semibold">{{ venue }}</h4>
-                <p class="text-slate-500 text-sm">{{ venueCounts[venue] }} función{{ venueCounts[venue] !== 1 ? 'es' : ''
-                  }} programada{{ venueCounts[venue] !== 1 ? 's' : '' }}</p>
+                <p class="text-slate-500 text-sm">{{ venueCounts[venue] }} función{{ venueCounts[venue] !== 1 ? 'es' :
+                  ''
+                }} programada{{ venueCounts[venue] !== 1 ? 's' : '' }}</p>
               </div>
             </div>
           </div>

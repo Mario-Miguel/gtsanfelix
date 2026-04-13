@@ -43,11 +43,11 @@
       </div>
     </section>
 
-    <!-- Producciones Actuales -->
+    <!-- Obres de Teatru Actuales -->
     <section class="max-w-7xl mx-auto px-6 py-20">
       <div class="flex items-center gap-3 mb-10">
         <span class="material-symbols-outlined text-[#C2B280]">star</span>
-        <h2 class="text-2xl font-bold">Producciones Actuales</h2>
+        <h2 class="text-2xl font-bold">Obres de Teatru Actuales</h2>
       </div>
       <ApiState :loading="playsLoading" :error="playsError">
         <PlaysCarousel :plays="plays ?? []" />
@@ -60,7 +60,7 @@
         <div class="flex items-center justify-between mb-10">
           <div class="flex items-center gap-3">
             <span class="material-symbols-outlined text-[#C2B280]">event</span>
-            <h2 class="text-2xl font-bold">Próximas Funciones</h2>
+            <h2 class="text-2xl font-bold">Próximes Funciones</h2>
           </div>
           <RouterLink to="/calendar"
             class="text-[#C2B280] hover:text-[#aa9668] text-sm transition-colors flex items-center gap-1">
@@ -100,15 +100,15 @@
     <section class="max-w-7xl mx-auto px-6 py-20">
       <div class="grid md:grid-cols-2 gap-12 items-center">
         <div>
-          <p class="text-[#C2B280] text-sm font-semibold uppercase tracking-widest mb-3">Quiénes somos</p>
-          <h2 class="text-3xl font-bold mb-5">Fundada en 2008 con una sola misión</h2>
+          <p class="text-[#C2B280] text-sm font-semibold uppercase tracking-widest mb-3">Quién somos</p>
+          <h2 class="text-3xl font-bold mb-5">Dende'l 2000</h2>
           <p class="text-slate-600 leading-relaxed mb-6">
-            G.T. San Félix de Valdesoto nació para ofrecer un espacio profesional donde actores, técnicos y escritores
-            aficionados puedan explorar su arte. Más de 16 años creando magia sobre el escenario en Asturies.
+            Con más de venticincu años faciendo representaciones teatrales basaes prauticamente nel teatru costumista
+            asturianu, intentamos reflexar en ca puesta n&apos;escena la vida cotidiana del pueblu asturianu.
           </p>
           <RouterLink to="/about"
             class="text-[#C2B280] hover:text-[#aa9668] font-medium flex items-center gap-1 transition-colors">
-            Conoce nuestra historia
+            Conoz la nuesa hestoria
             <span class="material-symbols-outlined text-base">arrow_forward</span>
           </RouterLink>
         </div>
@@ -131,22 +131,19 @@
               <span class="material-symbols-outlined text-[#C2B280]">theater_comedy</span>
               <span class="font-bold text-lg">G.T. San Félix de Valdesoto</span>
             </div>
-            <p class="text-slate-500 text-sm leading-relaxed max-w-xs">
-              Llevamos la magia del teatro a cada rincón. Compañía dedicada a la excelencia artística y la divulgación
-              cultural en Asturies.
-            </p>
+
           </div>
           <div>
             <h4 class="font-semibold mb-4 text-xs uppercase tracking-wider text-slate-600">Navegación</h4>
             <ul class="flex flex-col gap-2 text-sm text-slate-500">
               <li>
-                <RouterLink to="/" class="hover:text-slate-900 transition-colors">Inicio</RouterLink>
+                <RouterLink to="/" class="hover:text-slate-900 transition-colors">Iniciu</RouterLink>
               </li>
               <li>
                 <RouterLink to="/about" class="hover:text-slate-900 transition-colors">Compañía</RouterLink>
               </li>
               <li>
-                <RouterLink to="/repertoire" class="hover:text-slate-900 transition-colors">Repertorio</RouterLink>
+                <RouterLink to="/repertoire" class="hover:text-slate-900 transition-colors">Repertoriu</RouterLink>
               </li>
               <li>
                 <RouterLink to="/calendar" class="hover:text-slate-900 transition-colors">Cartelera</RouterLink>
@@ -154,10 +151,10 @@
             </ul>
           </div>
           <div>
-            <h4 class="font-semibold mb-4 text-xs uppercase tracking-wider text-slate-600">Contacto</h4>
+            <h4 class="font-semibold mb-4 text-xs uppercase tracking-wider text-slate-600">Contactu</h4>
             <ul class="flex flex-col gap-2 text-sm text-slate-500">
               <li class="flex items-center gap-2">
-                <span class="material-symbols-outlined text-sm">mail</span> gtvaldesoto@gmail.com
+                <span class="material-symbols-outlined text-sm">mail</span> gteatrusanfelix@hotmail.com
               </li>
               <li class="flex items-center gap-2">
                 <span class="material-symbols-outlined text-sm">phone</span> +34 606 58 54 12
@@ -170,7 +167,7 @@
         </div>
         <div
           class="border-t border-[#C2B280]/10 pt-6 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-slate-600">
-          <p>© 2024 G.T. San Félix de Valdesoto. Todos los derechos reservados.</p>
+          <p>© 2026 G.T. San Félix de Valdesoto. Todos los derechos reservados.</p>
         </div>
       </div>
     </footer>

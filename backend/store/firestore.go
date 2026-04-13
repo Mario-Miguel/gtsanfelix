@@ -342,7 +342,7 @@ func (fs *FirestoreStore) SeedIfEmpty() {
 
 	// Seed admin user
 	adminHash, _ := bcrypt.GenerateFromPassword([]byte("admin123"), bcrypt.DefaultCost)
-	adminUser := models.User{ID: 1, Email: "gtvaldesoto@gmail.com", Password: string(adminHash), Name: "Admin", Role: "admin"}
+	adminUser := models.User{ID: 1, Email: "gteatrusanfelix@hotmail.com", Password: string(adminHash), Name: "Admin", Role: "admin"}
 	if _, err := fs.client.Collection("users").Doc("1").Set(fs.ctx, adminUser); err != nil {
 		log.Printf("seed users: %v", err)
 	}

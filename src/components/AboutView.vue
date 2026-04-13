@@ -26,19 +26,22 @@
     <section class="max-w-7xl mx-auto px-6 py-20">
       <div class="grid md:grid-cols-2 gap-12 items-center">
         <div>
-          <h2 class="text-3xl font-bold mb-6">Nuestros Comienzos</h2>
+          <h2 class="text-3xl font-bold mb-6">Quién Somos</h2>
           <p class="text-slate-600 leading-relaxed mb-4">
-            G.T. San Félix de Valdesoto comenzó en 2008 cuando un grupo de amigos apasionados por el teatro decidió
-            ensayar en un garaje del barrio. Nadie imaginaba entonces que aquella primera función —una adaptación de
-            Lorca ante treinta espectadores— sería el inicio de una compañía que llegaría a miles de personas.
+            Con más de venticincu años faciendo representaciones teatrales basaes prauticamente nel teatru costumista
+            asturianu, intentamos reflexar en ca puesta n&apos;escena la vida cotidiana del pueblu asturianu.
           </p>
           <p class="text-slate-600 leading-relaxed mb-4">
-            A lo largo de 16 años hemos producido 24 obras, desde los clásicos grecolatinos hasta el teatro
-            contemporáneo más vanguardista, siempre manteniendo nuestra esencia amateur: hacer teatro por amor al arte.
+            Asomando la identidá típica de les sos xentes, según los usos y costumes, ensín escaecer lóxicamente, la
+            llingua propia nuesa, l&apos;asturianu; y too regáu cola nota risible, característica fundamental
+            d&apos;esti xéneru.
+
           </p>
           <p class="text-slate-600 leading-relaxed">
-            Hoy somos una comunidad de más de 40 personas entre actores, técnicos, diseñadores y gestores culturales que
-            comparten un mismo escenario y una misma pasión.
+            Nel planu personal, pertenecemos al grupu na actualidá once persones a parte de un elencu d&apos;ayudantes
+            que mos faciliten siempre&apos;l trabayu. El grupu cuenta con decoráu propiu, fechu pa cada obra que
+            tengamos en cartelu, según la llume y el soníu que necesite la mesma.
+
           </p>
         </div>
         <div class="rounded-lg overflow-hidden">
@@ -50,7 +53,7 @@
     </section>
 
     <!-- Philosophy -->
-    <section class="bg-[#C2B280]/10 py-20">
+    <!-- <section class="bg-[#C2B280]/10 py-20">
       <div class="max-w-7xl mx-auto px-6">
         <div class="text-center mb-12">
           <p class="text-[#C2B280] text-sm font-semibold uppercase tracking-widest mb-3">Nuestra Filosofía</p>
@@ -65,25 +68,27 @@
           </div>
         </div>
       </div>
-    </section>
+    </section> -->
 
     <!-- Active productions carousel -->
-    <section class="max-w-7xl mx-auto px-6 py-20">
-      <div class="text-center mb-12">
-        <p class="text-[#C2B280] text-sm font-semibold uppercase tracking-widest mb-3">En Cartelera</p>
-        <h2 class="text-3xl font-bold">Producciones Actuales</h2>
-      </div>
+    <section class="bg-[#C2B280]/10 px-6 py-20">
+      <div class="max-w-7xl mx-auto">
+        <div class="text-center mb-12">
+          <p class="text-[#C2B280] text-sm font-semibold uppercase tracking-widest mb-3">En Cartelera</p>
+          <h2 class="text-3xl font-bold">Obres de Teatru Actuales</h2>
+        </div>
 
-      <ApiState :loading="playsLoading" :error="playsError">
-        <PlaysCarousel :show-inactive="true" :plays="plays ?? []" />
-      </ApiState>
+        <ApiState :loading="playsLoading" :error="playsError">
+          <PlaysCarousel :plays="plays ?? []" />
+        </ApiState>
+      </div>
     </section>
 
     <!-- Team -->
     <section class="max-w-7xl mx-auto px-6 py-20">
       <div class="text-center mb-12">
-        <p class="text-[#C2B280] text-sm font-semibold uppercase tracking-widest mb-3">Las Personas</p>
-        <h2 class="text-3xl font-bold">Nuestro Equipo</h2>
+        <!-- <p class="text-[#C2B280] text-sm font-semibold uppercase tracking-widest mb-3">Las Personas</p> -->
+        <h2 class="text-3xl font-bold">El nuesu Equipu</h2>
       </div>
       <ApiState :loading="loading" :error="error">
         <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -123,27 +128,27 @@ const { data: plays, loading: playsLoading, error: playsError } = useApiRequest(
 
 
 const stats = [
-  { value: '2008', label: 'Año de fundación' },
-  { value: '24', label: 'Producciones' },
+  { value: '2000', label: 'Añu de fundación' },
+  { value: '24', label: 'Obres de Teatru' },
 ]
 
-const pillars = [
-  {
-    icon: 'favorite',
-    title: 'Puro Amateurismo',
-    desc: 'Teatro creado desde la pasión artística, sin motivación comercial. Hacemos teatro porque lo amamos.',
-  },
-  {
-    icon: 'groups',
-    title: 'Comunidad Abierta',
-    desc: 'Damos la bienvenida a intérpretes de todos los niveles de experiencia. El escenario es para todos.',
-  },
-  {
-    icon: 'public',
-    title: 'Impacto Social',
-    desc: 'Usamos el teatro como herramienta para el diálogo comunitario y el cambio social positivo.',
-  },
-]
+// const pillars = [
+//   {
+//     icon: 'favorite',
+//     title: 'Puro Amateurismo',
+//     desc: 'Teatro creado desde la pasión artística, sin motivación comercial. Hacemos teatro porque lo amamos.',
+//   },
+//   {
+//     icon: 'groups',
+//     title: 'Comunidad Abierta',
+//     desc: 'Damos la bienvenida a intérpretes de todos los niveles de experiencia. El escenario es para todos.',
+//   },
+//   {
+//     icon: 'public',
+//     title: 'Impacto Social',
+//     desc: 'Usamos el teatro como herramienta para el diálogo comunitario y el cambio social positivo.',
+//   },
+// ]
 
 
 </script>

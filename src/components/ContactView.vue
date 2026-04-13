@@ -68,8 +68,9 @@
                 <span class="material-symbols-outlined text-[#C2B280] mt-0.5">mail</span>
                 <div>
                   <p class="text-xs text-slate-500 mb-0.5 uppercase tracking-wider">Email</p>
-                  <a href="mailto:gtvaldesoto@gmail.com" class="text-slate-900 hover:text-[#C2B280] transition-colors">
-                    gtvaldesoto@gmail.com
+                  <a href="mailto:gteatrusanfelix@hotmail.com"
+                    class="text-slate-900 hover:text-[#C2B280] transition-colors">
+                    gteatrusanfelix@hotmail.com
                   </a>
                 </div>
               </div>
@@ -92,7 +93,7 @@
               <a v-for="social in socials" :key="social.name" href="#"
                 class="flex items-center gap-3 text-slate-600 hover:text-slate-900 transition-colors group">
                 <span class="material-symbols-outlined text-[#C2B280] group-hover:text-[#aa9668]">{{ social.icon
-                  }}</span>
+                }}</span>
                 <div>
                   <p class="text-sm font-medium text-slate-900">{{ social.name }}</p>
                   <p class="text-xs text-slate-500">{{ social.handle }}</p>
